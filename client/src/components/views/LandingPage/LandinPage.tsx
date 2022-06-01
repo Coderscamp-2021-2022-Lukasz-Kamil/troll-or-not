@@ -1,8 +1,12 @@
 import styled from "styled-components";
 
+const LandingWrapper = styled.div`
+    background-color: lightblue;
+`;
+
 const LandingPage = () => {
     return (
-        <div>Landing Page</div>
+        <LandingWrapper>Landing Page</LandingWrapper>
     )
 }
 
