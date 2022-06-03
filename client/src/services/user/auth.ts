@@ -8,7 +8,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { UserCreateInput, UserSignInInput } from "./types";
-import { app, auth, db } from "../firebase";
+import { auth, db } from "../firebase";
 import {
   addDoc,
   collection,
