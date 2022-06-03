@@ -15,6 +15,7 @@ import { collection, onSnapshot, query } from "firebase/firestore";
 import { db, auth } from "./services/firebase";
 
 function App() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [uid, setUid] = useCookies();
   const [games, setGames] = useState<any>([]);
 
