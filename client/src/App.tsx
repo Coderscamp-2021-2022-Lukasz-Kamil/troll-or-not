@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import GlobalStyles from "./global-styles/GlobalStyles";
+import { ThemeProvider } from "styled-components";
+import { theme } from "./theme/theme";
+import LandingPage from "./components/views/LandingPage/LandinPage";
 import {
   googleSignIn,
   signIn,
@@ -13,9 +15,10 @@ import { collection, onSnapshot, query } from "firebase/firestore";
 import { db, auth } from "./services/firebase";
 
 function App() {
-  // const [accessToken, setAccessToken] = useCookies();
   const [uid, setUid] = useCookies();
   const [games, setGames] = useState<any>([]);
+
+
   const handleCreateUser = async () => {
     try {
       const user = await signUp({
@@ -64,18 +67,13 @@ function App() {
     } catch(err) {
       console.log(err);
     }
-
-
   };
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <button onClick={handleCreateUser}>REGISTER</button>
+	return (
+		<ThemeProvider theme={theme}>
+			<GlobalStyles />
+			<h3>Hello Troll :)</h3>
+      <button onClick={handleCreateUser}>REGISTER</button>
         <button onClick={handleGoogle}>GOOGLE</button>
         <button onClick={userSignOut}>SIGN OUT</button>
         <button onClick={handleSignIn}>SIGN IN</button>
@@ -83,17 +81,10 @@ function App() {
         {games.length ? (games.map((game: any, index: any) => {
         return (<p key={index}>{game.name}</p>)
 })): <></>}
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+			<LandingPage />
+		</ThemeProvider>
+	);
 }
+
 
 export default App;
