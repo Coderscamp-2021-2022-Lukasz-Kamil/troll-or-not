@@ -3,6 +3,7 @@ import React from "react";
 import { Column, useTable, useFilters } from "react-table";
 import { useMemo } from "react";
 import { DefaultColumnFilter } from "./DefaultColumnFilter";
+import Title from "../../ui/title/Title";
 import {
   TableWrapper,
   Table,
@@ -12,6 +13,7 @@ import {
   TableBody,
   TableData,
   ButtonGame,
+  LobbyPageWrapper,
 } from "./LobbyPage.styled";
 
 interface Lobby {
@@ -77,7 +79,8 @@ export const LobbyPage = () => {
     useTable({ columns, data }, useFilters);
 
   return (
-    <>
+    <LobbyPageWrapper>
+      <Title />
       <TableWrapper>
         <Table {...getTableProps()}>
           <TableHead>
@@ -122,6 +125,6 @@ export const LobbyPage = () => {
         </Table>
         <ButtonGame>Stwórz grę</ButtonGame>
       </TableWrapper>
-    </>
+    </LobbyPageWrapper>
   );
 };

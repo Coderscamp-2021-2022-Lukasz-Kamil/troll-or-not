@@ -1,40 +1,27 @@
 import styled from "styled-components";
 import { Button } from "../../ui/Button/Button.style";
+import { FlexWrapper } from "../../wrapper/FlexCenter/FlexWrapper.style";
 
-export const TableWrapper = styled.div`
-  display: flex;
+export const LobbyPageWrapper = styled(FlexWrapper)`
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+`;
+
+export const TableWrapper = styled(FlexWrapper)`
   flex-direction: column;
   align-items: center;
   justify-content: "center";
   gap: 0.5rem;
-  overflow-x: scroll;
-  min-height: 80vh;
-  width: 100%;
+  width: 50%;
   align-items: center;
   padding: 2rem 1rem;
-
-  .align-right {
-    text-align: right;
-    line-height: 100%;
-  }
-
-  .align-center {
-    text-align: center;
-  }
-
-  .offer-photo {
-    text-align: center;
-  }
-  .offer-photo img {
-    width: 100px;
-    height: 100px;
-  }
 `;
 
 export const Table = styled.table`
   display: block;
   max-width: fit-content;
-  min-height: 50vh;
+  min-height: 30vh;
   margin: 0 auto;
   overflow-x: auto;
   white-space: nowrap;
@@ -62,17 +49,18 @@ export const TableHeader = styled.th`
   padding: 0.8rem;
   font-weight: normal;
   text-transform: capitalize;
-  border: 1px solid #ddd;
+  border: 2px solid ${({ theme }) => theme.colors.card.linecolor};
   background: ${({ theme }) => theme.colors.common.backgroundcolor};
 `;
 
 export const TableData = styled.td`
   padding: 1.2rem;
-  border: 1px solid #ddd;
+  border: 2px solid ${({ theme }) => theme.colors.card.linecolor};
 `;
 
 export const ButtonGame = styled(Button)`
   width: 10vw;
-  height: 5vh;
+  height: 6vh;
   font-size: ${({ theme }) => theme.size.desktop.sm}px;
+  margin-top: 1rem;
 `;

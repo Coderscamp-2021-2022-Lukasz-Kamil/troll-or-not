@@ -17,7 +17,10 @@ export const Input = styled.input<InputProps>`
     color: ${({ theme, color }) =>
         color ? theme.colors.common[color] : theme.colors.common.backgroundcolor};
     font-size : ${({ theme }) => theme.size.desktop.lg}px;
+    font-family: 'Kaushan Script', cursive;
     border: 1px transparent;
     outline: none;
     padding-left: 20px;
+    border-radius: 10px;
+    margin-top: 63px;
     `
