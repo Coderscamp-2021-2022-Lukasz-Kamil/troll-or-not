@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 interface ButtonProps{
-    background?: | "primary" | "secondary" | "false" | "true" | "answer";
+    background?: | "primary" | "secondary" | "false" | "true" | "answer" | "google" | "facebook";
     height?: number;
     width?: number;
     fontSize?: | "lg" | "xxl";

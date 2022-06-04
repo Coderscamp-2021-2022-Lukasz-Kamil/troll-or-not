@@ -18,6 +18,8 @@ export const theme = {
 			hover: "#AC4949",
 			falseHover: "#EC3333",
 			trueHover: "#47BA2A",
+			google: "#fff",
+			facebook: "#4267B2",
 		},
 		input: {
 			primary: "#D9D9D9",
