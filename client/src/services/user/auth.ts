@@ -1,6 +1,5 @@
 import {
   createUserWithEmailAndPassword,
-  onAuthStateChanged,
   signInWithPopup,
   GoogleAuthProvider,
   signOut,
@@ -62,14 +61,15 @@ export async function signIn({
   return user;
 }
 // auth observer
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    const uid = user.uid;
-    console.log("uid: " + uid);
-  } else {
-    console.log("no user");
-  }
-});
+// onAuthStateChanged(auth, (user) => {
+//   if (user) {
+//     const uid = user.uid;
+//     authenticatedUser = user;
+//     console.log("uid: " + uid);
+//   } else {
+//     console.log("no user");
+//   }
+// });
 
 export async function googleSignIn(): Promise<User> {
   const { user } = await signInWithPopup(auth, new GoogleAuthProvider());

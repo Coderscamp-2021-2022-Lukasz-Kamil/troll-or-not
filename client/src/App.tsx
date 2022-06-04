@@ -12,6 +12,7 @@ import BeforeGamePage from "./components/views/BeforeGamePage/BeforeGamePage";
 import QuizRoomPlayerPage from "./components/views/QuizRoomPlayerPage/QuizRoomPlayerPage";
 import QuizRoomTrollPage from "./components/views/QuizRoomTrollPage/QuizRoomTrollPage";
 import NotFoundPage from "./components/views/NotFound/NotFoundPage";
+import ProtectedRoutes from "./components/ProtectedRoutes/ProtectedRouts";
 
 function App() {
   return (
@@ -20,17 +21,21 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/add-question" element={<AddQuestionPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/registration" element={<RegistrationPage />} />
-          <Route path="/lobby-list" element={<LobbyPage />} />
-          <Route path="/current-lobby" element={<BeforeGamePage />} />
-          <Route
-            path="/current-lobby/player"
-            element={<QuizRoomPlayerPage />}
-          />
-          <Route path="/current-lobby/troll" element={<QuizRoomTrollPage />} />
           <Route path="*" element={<NotFoundPage />} />
+          <Route path="/" element={<ProtectedRoutes />}>
+            <Route path="/add-question" element={<AddQuestionPage />} />
+            
+            <Route path="/lobby-list" element={<LobbyPage />} />
+            <Route path="/current-lobby" element={<BeforeGamePage />} />
+            <Route
+              path="/current-lobby/player"
+              element={<QuizRoomPlayerPage />}
+            />
+            <Route path="/current-lobby/troll" element={<QuizRoomTrollPage />} />
+          </Route>
+
         </Routes>
       </Router>
     </ThemeProvider>

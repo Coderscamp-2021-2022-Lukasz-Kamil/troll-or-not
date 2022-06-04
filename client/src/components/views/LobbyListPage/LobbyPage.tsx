@@ -20,9 +20,7 @@ import {
   query,
   collection,
   onSnapshot,
-  DocumentData,
 } from "firebase/firestore";
-import { GameModel } from "../../../services/games/types";
 import { Button } from "../../ui/Button/Button.style";
 import { joinToGame } from "../../../services/games/joinToGame";
 
@@ -91,7 +89,7 @@ export const LobbyPage = () => {
         ],
       },
     ],
-    [data]
+    []
   );
 
   useEffect(() => {
@@ -120,7 +118,7 @@ export const LobbyPage = () => {
 
   return (
     <PageWrapper>
-      <Title />
+      <Title showButton={true}/>
       <TableWrapper>
         <Table {...getTableProps()}>
           <TableHead>

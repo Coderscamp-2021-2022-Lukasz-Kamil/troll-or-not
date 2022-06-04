@@ -10,7 +10,7 @@ import { LeftSideContainer } from "../../wrapper/FlexCenter/LeftSideContainer";
 const AddQuestionPage = () => {
     return (
         <>
-        <Title />
+        <Title showButton={true}/>
         <LeftSideContainer>
             <FlexWrapper direction="column">
                 <GridContainer GridColumnLeftWidth={1} GridColumnRightWidth={2} GridGap="40">
