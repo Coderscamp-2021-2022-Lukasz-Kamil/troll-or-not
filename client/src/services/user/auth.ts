@@ -26,6 +26,7 @@ async function createNewUser(nickname: string, authID: string) {
     startGames: 0,
     points: 0,
     wins: 0,
+    isAdmin: false,
   });
 }
 
@@ -88,21 +89,3 @@ export async function userSignOut() {
     console.log(err);
   }
 }
-
-// export async function facebookSignIn() {
-//   try {
-//     const result = await signInWithPopup(auth, new FacebookAuthProvider());
-//     const user = result.user;
-
-//     const existingUser = await getUser(user.uid);
-
-//     if (!existingUser.length) {
-//       await addDoc(collection(db, "user_test"), {
-//         nickname: user.email,
-//         authID: user.uid,
-//       });
-//     }
-//   } catch (err) {
-//     console.log(err);
-//   }
-// }
