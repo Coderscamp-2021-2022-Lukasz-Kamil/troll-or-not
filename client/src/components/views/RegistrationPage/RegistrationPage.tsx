@@ -29,22 +29,20 @@ const RegistrationPage = () => {
         <>
         <Title />
         <LeftSideContainer>
-            <FlexWrapper direction="column">
-                <GridContainer GridColumnLeftWidth={1} GridColumnRightWidth={2} GridGap="40"> 
-                    <p></p>
-                    <SiteTitle>Rejestracja</SiteTitle>
-                    <TypographyGrid marginRight={30}>Nazwa użytkownika</TypographyGrid>
-                    <Input />
-                    <TypographyGrid marginRight={30}>E-mail</TypographyGrid>
-                    <Input />
-                    <TypographyGrid marginRight={30}>Hasło</TypographyGrid>
-                    <Input />
-                    <TypographyGrid marginRight={30}>Powtórz hasło</TypographyGrid>
-                    <Input />
-                    <p></p>
-                    <Button>Stwórz konto!</Button>
-                </GridContainer>
-            </FlexWrapper>
+            <GridContainer> 
+                <p></p>
+                <SiteTitle>Rejestracja</SiteTitle>
+                <TypographyGrid>Nazwa użytkownika</TypographyGrid>
+                <Input />
+                <TypographyGrid>E-mail</TypographyGrid>
+                <Input />
+                <TypographyGrid>Hasło</TypographyGrid>
+                <Input />
+                <TypographyGrid>Powtórz hasło</TypographyGrid>
+                <Input />
+                <p></p>
+                <Button>Stwórz konto!</Button>
+            </GridContainer>
         </LeftSideContainer>
         <FlexWrapperLink justifyContent="flex-start">
             <Typography>Masz już konto?</Typography>
