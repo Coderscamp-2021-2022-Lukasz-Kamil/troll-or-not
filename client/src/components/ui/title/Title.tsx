@@ -8,7 +8,7 @@ interface ITitle {
 
 
 export const TitleIco = styled.img.attrs({
-    src: `${title}`,
+  src: `${title}`,
 })``;
 
 
@@ -17,11 +17,8 @@ export const TitlePic = styled(TitleIco)<ITitle>`
     margin-bottom: ${({ marginBottom }) => (marginBottom ? marginBottom : 80)}px;
 `;
 
-
 const Title = () => {
-    return (
-        <TitlePic />
-    )
-}
+  return <TitlePic />;
+};
 
 export default Title;
