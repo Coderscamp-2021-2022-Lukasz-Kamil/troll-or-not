@@ -4,7 +4,7 @@ import { Input } from "../../ui/Input/Input";
 import Title from "../../ui/title/Title";
 import { FlexWrapper } from "../../wrapper/FlexCenter/FlexWrapper.style";
 import { GridContainer } from "../../wrapper/FlexCenter/GridContainter.style";
-import { Typography } from "../../ui/Typography/Typography";
+import { Typography, TypographyGrid } from "../../ui/Typography/Typography";
 import { LeftSideContainer } from "../../wrapper/FlexCenter/LeftSideContainer";
 
 const AddQuestionPage = () => {
@@ -16,13 +16,15 @@ const AddQuestionPage = () => {
                 <GridContainer GridColumnLeftWidth={1} GridColumnRightWidth={2} GridGap="40">
                     <Typography>Pytanie</Typography>
                     <Input />
-                    <Typography>Opdowiedź A</Typography>
+                    <p></p>
+                    <p></p>
+                    <TypographyGrid>Opdowiedź A</TypographyGrid>
                     <Input />
-                    <Typography>Odpowiedź B</Typography>
+                    <TypographyGrid>Odpowiedź B</TypographyGrid>
                     <Input />
-                    <Typography>Odpowiedź C</Typography>
+                    <TypographyGrid>Odpowiedź C</TypographyGrid>
                     <Input />
-                    <Typography>Odpowiedź D</Typography>
+                    <TypographyGrid>Odpowiedź D</TypographyGrid>
                     <Input />
                     <p></p>
                     <Button>Dodaj pytanie!</Button>

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 interface TypographyProps{
-    fontSize?: | "mds" | "mdl" | "lg" | "xxl";
+    fontSize?: | "mds" | "mdl" | "lg" | "xl" | "xxl";
     marginRight?: number;
 }
 
