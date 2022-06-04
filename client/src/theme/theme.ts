@@ -14,7 +14,10 @@ export const theme = {
 			secondary: "#3B1616",
 			false: "#981919",
 			true: "#236B11",
+			answer: "transparent",
 			hover: "#AC4949",
+			falseHover: "#EC3333",
+			trueHover: "#47BA2A",
 		},
 		input: {
 			primary: "#D9D9D9",
