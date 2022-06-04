@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Button } from "../../ui/Button/Button.style";
 import { TitlePic } from "../../ui/title/Title";
@@ -6,6 +6,7 @@ import { FlexWrapper } from "../../wrapper/FlexCenter/FlexWrapper.style";
 import { theme } from "../../../theme/theme";
 import { Typography } from "../../ui/Typography/Typography";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
+import { SlideOutPanel } from "../../ui/SlideOutPanel/SlideOutPanel";
 
 export const GameViewContainer = styled.div`
 	display: grid;
@@ -39,7 +40,7 @@ export const Video = styled.div<VideoProps>`
 `;
 
 const QuizRoomPlayerPage = () => {
-    const [isPlaying, setIsPlaying] = useState(true)
+	const [isPlaying, setIsPlaying] = useState(true);
 	const answers = ["Answer 1", "Answer 2", "Answer 3", "Answer 4"];
 	const observers = [
 		{ name: "Kamil", ID: "222333" },
@@ -94,7 +95,7 @@ const QuizRoomPlayerPage = () => {
 								colors={["#236B11", "#004777", "#F7B801", "#A30000", "#A30000"]}
 								colorsTime={[30, 15, 12, 5, 0]}
 								onComplete={() => {
-                                    setIsPlaying(false)
+									setIsPlaying(false);
 								}}>
 								{({ remainingTime }) => remainingTime}
 							</CountdownCircleTimer>
