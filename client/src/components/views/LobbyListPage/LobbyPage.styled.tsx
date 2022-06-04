@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Button } from "../../ui/Button/Button.style";
 import { FlexWrapper } from "../../wrapper/FlexCenter/FlexWrapper.style";
 
-export const LobbyPageWrapper = styled(FlexWrapper)`
+export const PageWrapper = styled(FlexWrapper)`
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
@@ -14,15 +14,14 @@ export const TableWrapper = styled(FlexWrapper)`
   justify-content: "center";
   gap: 0.5rem;
   width: 50%;
-  align-items: center;
   padding: 2rem 1rem;
 `;
 
 export const Table = styled.table`
   display: block;
   max-width: fit-content;
-  min-height: 30vh;
-  margin: 0 auto;
+  /* min-height: 30vh; */
+  /* margin: 0 auto; */
   overflow-x: auto;
   white-space: nowrap;
   color: ${({ theme }) => theme.colors.common.textColor};
@@ -46,7 +45,7 @@ export const TableRow = styled.tr`
 
 export const TableHeader = styled.th`
   align-items: center;
-  padding: 0.8rem;
+  padding: 1.4rem;
   font-weight: normal;
   text-transform: capitalize;
   border: 2px solid ${({ theme }) => theme.colors.card.linecolor};
