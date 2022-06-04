@@ -1,12 +1,15 @@
 import styled from "styled-components";
+import Title from "../../ui/title/Title";
 
 const LandingWrapper = styled.div`
-    background-color: lightblue;
+color: white;
 `;
 
 const LandingPage = () => {
     return (
-        <LandingWrapper>Landing Page</LandingWrapper>
+        // <LandingWrapper>
+            <Title />
+        // </LandingWrapper>
     )
 }
 

@@ -73,15 +73,14 @@ function App() {
 	return (
 		<ThemeProvider theme={theme}>
 			<GlobalStyles />
-			<h3>Hello Troll :)</h3>
-      <button onClick={handleCreateUser}>REGISTER</button>
+      {/* <button onClick={handleCreateUser}>REGISTER</button>
         <button onClick={handleGoogle}>GOOGLE</button>
         <button onClick={userSignOut}>SIGN OUT</button>
         <button onClick={handleSignIn}>SIGN IN</button>
         <button onClick={() => addGame({name: "superName", host: auth.currentUser?.uid || "", players: 4})}>ADD GAME</button>
         {games.length ? (games.map((game: any, index: any) => {
         return (<p key={index}>{game.name}</p>)
-})): <></>}
+})): <></>} */}
 			<LandingPage />
 		</ThemeProvider>
 	);
