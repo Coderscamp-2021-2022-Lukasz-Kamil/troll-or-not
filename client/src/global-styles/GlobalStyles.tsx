@@ -16,6 +16,7 @@ const GlobalStyles = createGlobalStyle`
       height: 100vh;
       width: 100vw;
       background-position: 100%;
+      color: ${({ theme }) => theme.colors.common.textColor};
 
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
