@@ -11,6 +11,7 @@ import {
   TableHeader,
   TableBody,
   TableData,
+  ButtonGame,
 } from "./LobbyPage.styled";
 
 interface Lobby {
@@ -119,6 +120,7 @@ export const LobbyPage = () => {
             })}
           </TableBody>
         </Table>
+        <ButtonGame>Stwórz grę</ButtonGame>
       </TableWrapper>
     </>
   );

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Button } from "../../ui/Button/Button.style";
 
 export const TableWrapper = styled.div`
   display: flex;
@@ -68,4 +69,10 @@ export const TableHeader = styled.th`
 export const TableData = styled.td`
   padding: 1.2rem;
   border: 1px solid #ddd;
+`;
+
+export const ButtonGame = styled(Button)`
+  width: 10vw;
+  height: 5vh;
+  font-size: ${({ theme }) => theme.size.desktop.sm}px;
 `;
