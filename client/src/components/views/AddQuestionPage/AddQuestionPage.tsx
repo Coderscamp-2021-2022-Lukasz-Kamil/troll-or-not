@@ -18,13 +18,13 @@ const AddQuestionPage = () => {
                     <Input />
                     <p></p>
                     <p></p>
-                    <TypographyGrid>Opdowiedź A</TypographyGrid>
+                    <TypographyGrid>Opdowiedź Prawidłowa</TypographyGrid>
                     <Input />
-                    <TypographyGrid>Odpowiedź B</TypographyGrid>
+                    <TypographyGrid>Odpowiedź Błędna</TypographyGrid>
                     <Input />
-                    <TypographyGrid>Odpowiedź C</TypographyGrid>
+                    <TypographyGrid>Odpowiedź Błędna</TypographyGrid>
                     <Input />
-                    <TypographyGrid>Odpowiedź D</TypographyGrid>
+                    <TypographyGrid>Odpowiedź Błędna</TypographyGrid>
                     <Input />
                     <p></p>
                     <Button>Dodaj pytanie!</Button>
