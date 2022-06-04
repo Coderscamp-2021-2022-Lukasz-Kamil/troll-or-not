@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Column, useTable, useFilters } from "react-table";
 import { useMemo } from "react";
 import { DefaultColumnFilter } from "./DefaultColumnFilter";
@@ -16,30 +16,32 @@ import {
   ButtonGame,
   PageWrapper,
 } from "./LobbyPage.styled";
+import { auth, db } from "../../../services/firebase";
+import {
+  query,
+  collection,
+  onSnapshot,
+  DocumentData,
+} from "firebase/firestore";
+import { GameModel } from "../../../services/games/types";
+import { Button } from "../../ui/Button/Button.style";
+import { joinToGame } from "../../../services/games/joinToGame";
 
 interface Lobby {
+  id: string;
   name: string;
   numOfGamers: string;
   state: string;
 }
 
 export const LobbyPage = () => {
-  const data = useMemo<Lobby[]>(
-    () => [
-      {
-        name: "Super Lobby",
-        numOfGamers: "4/4",
-        state: "Trwa",
-      },
-      {
-        name: "Lobby",
-        numOfGamers: "1/4",
-        state: "Dołącz",
-      },
-    ],
-    []
-  );
+  const [games, setGames] = useState<Lobby[]>([]);
 
+  const data = useMemo<Lobby[]>(() => games, [games]);
+
+  const handleJoinGame = async (gameId: string) => {
+    joinToGame({ gameId, userId: auth.currentUser!.uid });
+  };
   const columns = useMemo<Column<Lobby>[]>(
     () => [
       {
@@ -68,13 +70,51 @@ export const LobbyPage = () => {
           {
             Header: "",
             accessor: "state",
+            Cell: ({ cell }: any) => {
+              console.log(cell.row.original.id);
+              return cell.value === "open" ? (
+                <div className="align-center">
+                  {cell.value}
+                  <Button
+                    className="activate align-center"
+                    value={cell.row.values.id}
+                    onClick={() => handleJoinGame(cell.row.original.id)}
+                  >
+                    Dołącz
+                  </Button>
+                </div>
+              ) : (
+                <>{cell.value}</>
+              );
+            },
             Filter: DefaultColumnFilter,
           },
         ],
       },
     ],
-    []
+    [data]
   );
+
+  useEffect(() => {
+    const q = query(collection(db, "games_test"));
+
+    onSnapshot(q, (querySnapshot) => {
+      const data: any[] = [];
+      querySnapshot.forEach((doc) => {
+        data.push({ data: doc.data(), id: doc.id });
+      });
+      setGames(
+        data.map((game) => {
+          return {
+            id: game.id,
+            name: game.data.name,
+            numOfGamers: `${game.data.participants.length}/${game.data.players}`,
+            state: game.data.status,
+          };
+        })
+      );
+    });
+  }, []);
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data }, useFilters);
