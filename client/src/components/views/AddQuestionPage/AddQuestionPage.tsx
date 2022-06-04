@@ -1,7 +1,8 @@
 import React from "react";
+import { Input } from "../../ui/Input/Input";
 const AddQuestionPage = () => {
     return (
-        <div>AddQuestionPage</div>
+        <Input/>
     )
 }
 

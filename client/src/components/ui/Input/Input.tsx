@@ -22,4 +22,5 @@ export const Input = styled.input<InputProps>`
     outline: none;
     padding-left: 20px;
     border-radius: 10px;
+    margin-top: 63px;
     `
