@@ -21,6 +21,8 @@ export const Button = styled.button<ButtonProps>`
     border: 1px transparent;
     transition: 0.2s;
     cursor: pointer;
+    font-family: 'Kaushan Script', cursive;
+;
      &:hover {
     background: ${({ theme , hoverBackground}) =>
     hoverBackground ? theme.colors.button[hoverBackground] : theme.colors.button.hover};
