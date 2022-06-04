@@ -13,12 +13,12 @@ import { useCookies } from "react-cookie";
 import { addGame } from "./services/games/createGame";
 import { collection, onSnapshot, query } from "firebase/firestore";
 import { db, auth } from "./services/firebase";
+import { LobbyPage } from "./components/views/LobbyPage/LobbyPage";
 
 function App() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [uid, setUid] = useCookies();
   const [games, setGames] = useState<any>([]);
-
 
   const handleCreateUser = async () => {
     try {
@@ -26,7 +26,7 @@ function App() {
         email: "superuser1@email.com",
         password: "12345678",
         confirmPassword: "12345678",
-        nickname: "krulikos"
+        nickname: "krulikos",
       });
       setUid("TON_uid", user.uid);
     } catch (err) {
@@ -38,15 +38,15 @@ function App() {
     try {
       const credentials = {
         email: "superuser1@email.com",
-        password: "12345678"
+        password: "12345678",
       };
 
       const user = await signIn(credentials);
       setUid("TON_uid", user.uid);
-    } catch(err) {
+    } catch (err) {
       console.log(err);
     }
-  } 
+  };
 
   useEffect(() => {
     const q = query(collection(db, "games_test"));
@@ -54,38 +54,51 @@ function App() {
     onSnapshot(q, (querySnapshot) => {
       const data: any = [];
       querySnapshot.forEach((doc) => {
-          data.push(doc.data());
+        data.push(doc.data());
       });
       setGames(data);
     });
-
   }, []);
 
   const handleGoogle = async () => {
     try {
       const user = await googleSignIn();
       setUid("TON_uid", user.uid);
-    } catch(err) {
+    } catch (err) {
       console.log(err);
     }
   };
 
-	return (
-		<ThemeProvider theme={theme}>
-			<GlobalStyles />
-			<h3>Hello Troll :)</h3>
+  return (
+    <ThemeProvider theme={theme}>
+      <GlobalStyles />
+      <h3>Hello Troll :)</h3>
       <button onClick={handleCreateUser}>REGISTER</button>
-        <button onClick={handleGoogle}>GOOGLE</button>
-        <button onClick={userSignOut}>SIGN OUT</button>
-        <button onClick={handleSignIn}>SIGN IN</button>
-        <button onClick={() => addGame({name: "superName", host: auth.currentUser?.uid || "", players: 4})}>ADD GAME</button>
-        {games.length ? (games.map((game: any, index: any) => {
-        return (<p key={index}>{game.name}</p>)
-})): <></>}
-			<LandingPage />
-		</ThemeProvider>
-	);
+      <button onClick={handleGoogle}>GOOGLE</button>
+      <button onClick={userSignOut}>SIGN OUT</button>
+      <button onClick={handleSignIn}>SIGN IN</button>
+      <button
+        onClick={() =>
+          addGame({
+            name: "superName",
+            host: auth.currentUser?.uid || "",
+            players: 4,
+          })
+        }
+      >
+        ADD GAME
+      </button>
+      {games.length ? (
+        games.map((game: any, index: any) => {
+          return <p key={index}>{game.name}</p>;
+        })
+      ) : (
+        <></>
+      )}
+      <LandingPage />
+      <LobbyPage />
+    </ThemeProvider>
+  );
 }
-
 
 export default App;
