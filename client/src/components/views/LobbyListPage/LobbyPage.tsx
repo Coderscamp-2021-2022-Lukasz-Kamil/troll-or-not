@@ -13,7 +13,7 @@ import {
   TableBody,
   TableData,
   ButtonGame,
-  LobbyPageWrapper,
+  PageWrapper,
 } from "./LobbyPage.styled";
 
 interface Lobby {
@@ -79,7 +79,7 @@ export const LobbyPage = () => {
     useTable({ columns, data }, useFilters);
 
   return (
-    <LobbyPageWrapper>
+    <PageWrapper>
       <Title />
       <TableWrapper>
         <Table {...getTableProps()}>
@@ -89,7 +89,7 @@ export const LobbyPage = () => {
                 headerGroup.getHeaderGroupProps();
               return (
                 <TableRow {...restHeaderGroup} key={key}>
-                  {headerGroup.headers.map((column) => {
+                  {headerGroup.headers.map((column: any) => {
                     const { key, ...restAttributes } = column.getHeaderProps();
                     return (
                       <TableHeader {...restAttributes} key={key}>
@@ -125,6 +125,6 @@ export const LobbyPage = () => {
         </Table>
         <ButtonGame>Stwórz grę</ButtonGame>
       </TableWrapper>
-    </LobbyPageWrapper>
+    </PageWrapper>
   );
 };
