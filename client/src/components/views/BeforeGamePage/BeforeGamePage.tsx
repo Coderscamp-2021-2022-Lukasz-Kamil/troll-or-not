@@ -10,6 +10,7 @@ import {
   TableHead,
   PageWrapper,
 } from "../LobbyListPage/LobbyPage.styled";
+import { SlideOutPanel } from "../../ui/SlideOutPanel/SlideOutPanel";
 
 import {
   ShortReminder,
@@ -58,49 +59,52 @@ const BeforeGamePage = () => {
     useTable({ columns, data });
 
   return (
-    <PageWrapper>
-      <Title />
-      <BeforeGameWrapper>
-        <LobbyName>Nazwa Lobby</LobbyName>
+    <>
+      <PageWrapper>
+        <Title />
+        <BeforeGameWrapper>
+          <LobbyName>Nazwa Lobby</LobbyName>
 
-        <TableWrapper>
-          <Table {...getTableProps()}>
-            <TableHead>
-              {headerGroups.map((headerGroup) => (
-                <TableRow {...headerGroup.getHeaderGroupProps()}>
-                  {headerGroup.headers.map((column) => (
-                    <TableHeader {...column.getHeaderProps()}>
-                      {column.render("Header")}
-                    </TableHeader>
-                  ))}
-                </TableRow>
-              ))}
-            </TableHead>
-
-            <TableBody {...getTableBodyProps()}>
-              {rows.map((row) => {
-                prepareRow(row);
-                const { key, ...restRowProps } = row.getRowProps();
-                return (
-                  <TableRow {...restRowProps} key={key}>
-                    {row.cells.map((cell) => {
-                      const { key, ...restCellProps } = cell.getCellProps();
-                      return (
-                        <TableData {...restCellProps} key={key}>
-                          {cell.render("Cell")}
-                        </TableData>
-                      );
-                    })}
+          <TableWrapper>
+            <Table {...getTableProps()}>
+              <TableHead>
+                {headerGroups.map((headerGroup) => (
+                  <TableRow {...headerGroup.getHeaderGroupProps()}>
+                    {headerGroup.headers.map((column) => (
+                      <TableHeader {...column.getHeaderProps()}>
+                        {column.render("Header")}
+                      </TableHeader>
+                    ))}
                   </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-          <ButtonGame>Rozpocznij grę!</ButtonGame>
-          <ShortReminder>Zaznacz gotowość!</ShortReminder>
-        </TableWrapper>
-      </BeforeGameWrapper>
-    </PageWrapper>
+                ))}
+              </TableHead>
+
+              <TableBody {...getTableBodyProps()}>
+                {rows.map((row) => {
+                  prepareRow(row);
+                  const { key, ...restRowProps } = row.getRowProps();
+                  return (
+                    <TableRow {...restRowProps} key={key}>
+                      {row.cells.map((cell) => {
+                        const { key, ...restCellProps } = cell.getCellProps();
+                        return (
+                          <TableData {...restCellProps} key={key}>
+                            {cell.render("Cell")}
+                          </TableData>
+                        );
+                      })}
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+            <ButtonGame>Rozpocznij grę!</ButtonGame>
+            <ShortReminder>Zaznacz gotowość!</ShortReminder>
+          </TableWrapper>
+        </BeforeGameWrapper>
+      </PageWrapper>
+      <SlideOutPanel />
+    </>
   );
 };
 

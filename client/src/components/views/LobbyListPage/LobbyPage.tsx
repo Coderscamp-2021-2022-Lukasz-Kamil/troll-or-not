@@ -4,6 +4,7 @@ import { Column, useTable, useFilters } from "react-table";
 import { useMemo } from "react";
 import { DefaultColumnFilter } from "./DefaultColumnFilter";
 import Title from "../../ui/title/Title";
+import { SlideOutPanel } from "../../ui/SlideOutPanel/SlideOutPanel";
 import {
   TableWrapper,
   Table,
@@ -39,8 +40,8 @@ export const LobbyPage = () => {
   const data = useMemo<Lobby[]>(() => games, [games]);
 
   const handleJoinGame = async (gameId: string) => {
-    joinToGame({gameId, userId: auth.currentUser!.uid})
-  }
+    joinToGame({ gameId, userId: auth.currentUser!.uid });
+  };
   const columns = useMemo<Column<Lobby>[]>(
     () => [
       {
@@ -100,7 +101,7 @@ export const LobbyPage = () => {
     onSnapshot(q, (querySnapshot) => {
       const data: any[] = [];
       querySnapshot.forEach((doc) => {
-        data.push({data: doc.data(), id: doc.id});
+        data.push({ data: doc.data(), id: doc.id });
       });
       setGames(
         data.map((game) => {
@@ -119,52 +120,56 @@ export const LobbyPage = () => {
     useTable({ columns, data }, useFilters);
 
   return (
-    <PageWrapper>
-      <Title />
-      <TableWrapper>
-        <Table {...getTableProps()}>
-          <TableHead>
-            {headerGroups.map((headerGroup) => {
-              const { key, ...restHeaderGroup } =
-                headerGroup.getHeaderGroupProps();
-              return (
-                <TableRow {...restHeaderGroup} key={key}>
-                  {headerGroup.headers.map((column: any) => {
-                    const { key, ...restAttributes } = column.getHeaderProps();
-                    return (
-                      <TableHeader {...restAttributes} key={key}>
-                        {column.render("Header")}
-                        <div>
-                          {/* {column.canFilter ? column.render("Filter") : null}  */}
-                        </div>
-                      </TableHeader>
-                    );
-                  })}
-                </TableRow>
-              );
-            })}
-          </TableHead>
-          <TableBody {...getTableBodyProps()}>
-            {rows.map((row) => {
-              prepareRow(row);
-              const { key, ...restRowProps } = row.getRowProps();
-              return (
-                <TableRow {...restRowProps} key={key}>
-                  {row.cells.map((cell) => {
-                    const { key, ...restCellProps } = cell.getCellProps();
-                    return (
-                      <TableData {...restCellProps} key={key}>
-                        {cell.render("Cell")}
-                      </TableData>
-                    );
-                  })}
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-        <ButtonGame>Stwórz grę</ButtonGame>
-      </TableWrapper>
-    </PageWrapper>
+    <>
+      <PageWrapper>
+        <Title />
+        <TableWrapper>
+          <Table {...getTableProps()}>
+            <TableHead>
+              {headerGroups.map((headerGroup) => {
+                const { key, ...restHeaderGroup } =
+                  headerGroup.getHeaderGroupProps();
+                return (
+                  <TableRow {...restHeaderGroup} key={key}>
+                    {headerGroup.headers.map((column: any) => {
+                      const { key, ...restAttributes } =
+                        column.getHeaderProps();
+                      return (
+                        <TableHeader {...restAttributes} key={key}>
+                          {column.render("Header")}
+                          <div>
+                            {column.canFilter ? column.render("Filter") : null}
+                          </div>
+                        </TableHeader>
+                      );
+                    })}
+                  </TableRow>
+                );
+              })}
+            </TableHead>
+            <TableBody {...getTableBodyProps()}>
+              {rows.map((row) => {
+                prepareRow(row);
+                const { key, ...restRowProps } = row.getRowProps();
+                return (
+                  <TableRow {...restRowProps} key={key}>
+                    {row.cells.map((cell) => {
+                      const { key, ...restCellProps } = cell.getCellProps();
+                      return (
+                        <TableData {...restCellProps} key={key}>
+                          {cell.render("Cell")}
+                        </TableData>
+                      );
+                    })}
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+          <ButtonGame>Stwórz grę</ButtonGame>
+        </TableWrapper>
+      </PageWrapper>
+      <SlideOutPanel />
+    </>
   );
 };
