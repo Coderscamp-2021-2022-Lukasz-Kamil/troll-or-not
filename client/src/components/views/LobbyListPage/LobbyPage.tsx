@@ -95,7 +95,7 @@ export const LobbyPage = () => {
                       <TableHeader {...restAttributes} key={key}>
                         {column.render("Header")}
                         <div>
-                          {column.canFilter ? column.render("Filter") : null}
+                         {/* {column.canFilter ? column.render("Filter") : null}  */}
                         </div>
                       </TableHeader>
                     );

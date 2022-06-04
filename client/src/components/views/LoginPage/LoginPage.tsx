@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Input } from "../../ui/Input/Input";
 import Title from "../../ui/title/Title";
-import { Typography } from "../../ui/Typography/Typography";
+import {  TypographyGrid } from "../../ui/Typography/Typography";
 import { FlexWrapper } from "../../wrapper/FlexCenter/FlexWrapper.style";
 import { GridContainer } from "../../wrapper/FlexCenter/GridContainter.style";
 import { LeftSideContainer } from "../../wrapper/FlexCenter/LeftSideContainer";
@@ -20,8 +20,8 @@ const LoginPage = () => {
             <SiteTitle>Logowanie</SiteTitle>
         </FlexWrapper>    
         <LeftSideContainer>
-            <GridContainer>
-                <Typography>E-mail</Typography>
+            <GridContainer >
+                <TypographyGrid>E-mail</TypographyGrid>
                 <Input type="text" />
             </GridContainer>
             </LeftSideContainer>  
