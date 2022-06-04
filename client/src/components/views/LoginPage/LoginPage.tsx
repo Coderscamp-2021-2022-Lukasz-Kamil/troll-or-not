@@ -9,7 +9,7 @@ import { LeftSideContainer } from "../../wrapper/FlexCenter/LeftSideContainer";
 import googleIcon from "../../../assets/googleIcon.svg";
 import { Button } from "../../ui/Button/Button.style";
 import { FlexWrapper } from "../../wrapper/FlexCenter/FlexWrapper.style";
-import { signIn } from "../../../services/user/auth";
+import { googleSignIn, signIn } from "../../../services/user/auth";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
