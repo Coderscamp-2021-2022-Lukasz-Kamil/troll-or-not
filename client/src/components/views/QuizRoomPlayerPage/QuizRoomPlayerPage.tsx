@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Button } from "../../ui/Button/Button.style";
 import { TitlePic } from "../../ui/title/Title";
@@ -39,6 +39,7 @@ export const Video = styled.div<VideoProps>`
 `;
 
 const QuizRoomPlayerPage = () => {
+  const [isCurrentPlayer, setCurrentPlayer] = useState(false);
   const answers = ["Answer 1", "Answer 2", "Answer 3", "Answer 4"];
   const observers = [
     { name: "Kamil", ID: "222333" },
@@ -53,10 +54,13 @@ const QuizRoomPlayerPage = () => {
         <GameViewContainer>
           <FlexWrapper direction="column" align-items="center">
             <TitlePic marginBottom="0px" />
-            {/* <Title></Title> */}
-            <Video width={666} height={400}>
-              VideoComponent
-            </Video>
+            {isCurrentPlayer ? (
+              ""
+            ) : (
+              <Video width={666} height={400}>
+                VideoComponent
+              </Video>
+            )}
             <Typography fontSize="mds">{player.name}</Typography>
             <FlexWrapper direction="column">
               <Typography fontSize="lg">Pytanie</Typography>
