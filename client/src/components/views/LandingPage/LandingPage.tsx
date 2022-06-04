@@ -14,7 +14,7 @@ const LandingPage = () => {
   return (
     <>
       <LandingWrapper direction={"column"}>
-        <Title />
+        <Title showButton={false}/>
         <Button>Sprawdź!</Button>
       </LandingWrapper>
       <SlideOutPanel />

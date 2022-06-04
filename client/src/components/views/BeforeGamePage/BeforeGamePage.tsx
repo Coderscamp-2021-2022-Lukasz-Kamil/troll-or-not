@@ -61,7 +61,7 @@ const BeforeGamePage = () => {
   return (
     <>
       <PageWrapper>
-        <Title />
+        <Title showButton={true} />
         <BeforeGameWrapper>
           <LobbyName>Nazwa Lobby</LobbyName>
 

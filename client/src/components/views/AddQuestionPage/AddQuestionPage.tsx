@@ -70,7 +70,7 @@ const AddQuestionPage = () => {
         return (
 
         <>
-        <Title />
+        <Title showButton={true}/>
         <LeftSideContainer>
             <FlexWrapper direction="column">
                 <GridContainer>

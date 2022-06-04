@@ -10,7 +10,7 @@ import { LeftSideContainer } from "../../wrapper/FlexCenter/LeftSideContainer";
 import { signUp } from "../../../services/user/auth";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 
@@ -54,8 +54,9 @@ const RegistrationPage = () => {
       });
       setUid("TON_uid", user.uid);
       navigateToLobby();
-    } catch (err) {
-      return toast.error('Nie udało się zalogować');
+    } catch (err: any) {
+        const message = err.message ? err.message : 'Nie udało się zarejestrować';
+      return toast.error(message);
     }
   };
 
@@ -80,7 +81,8 @@ const RegistrationPage = () => {
 
   return (
     <>
-      <Title />
+      <Title showButton={false}/>
+      <ToastContainer />
       <LeftSideContainer>
         <FlexWrapper direction="column">
           <GridContainer
