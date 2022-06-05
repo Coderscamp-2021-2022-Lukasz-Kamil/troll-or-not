@@ -16,13 +16,6 @@ Członkowie zespołu:
 - Ewelina Mężyk
 - Donata Bruderek
 
-### Spis treści
-
-- [Informacje ogólne](#informacjeogolne)
-- [Technologie](#technologie)
-- [Wymagania](#wymagania)
-- [Instalacja i uruchomienie](#instalacjaiuruchomienie)
-
 ### Informacje ogólne
 
 ---
