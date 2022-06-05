@@ -1,9 +1,11 @@
 import { query, collection, onSnapshot, doc } from 'firebase/firestore';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { auth, db } from '../../../services/firebase';
 import { CurrentPoints, GameModel } from '../../../services/games/types';
 import { QuestionModel } from '../../../services/questions/types';
+import { MeetContext } from '../../video/meetContext';
+import VideoFrame from '../../video/VideoFrame';
 import GameFinished from '../GameFinished/GameFisnished';
 import QuizRoomPlayerPage from '../QuizRoomPlayerPage/QuizRoomPlayerPage';
 import QuizRoomTrollPage from '../QuizRoomTrollPage/QuizRoomTrollPage';
@@ -25,13 +27,16 @@ const Game = () => {
     const authed = auth.currentUser;
 
     const userId = authed?.uid;
+    const [name, setName] = useContext(MeetContext);
+
+    setName(userId);
+
+
 
 
     const { gameId } = useParams()
-    console.log(currentRound);
     useEffect(() => {
         onSnapshot(doc(db, "games_test", gameId!), (querySnapshot) => {
-            console.log("snapshot")
           const data = querySnapshot.data() as GameModel;
           setGame(data);
           setCurrentRound(data.currentRound);
@@ -62,7 +67,8 @@ const Game = () => {
         return <GameFinished currentPoints={currentPoints}/>
     }
 
-    return <>{userId === answering ? <QuizRoomTrollPage currentTurn={turn} currentQuestion={currentQuestion} question={question}/> : <QuizRoomPlayerPage currentAnswer={currentAnswer} currentTurn={turn} currentQuestion={currentQuestion} question={question}/>}</>
+    return <>                        <VideoFrame gameId={gameId}/>
+    {userId === answering ? <QuizRoomTrollPage currentTurn={turn} currentQuestion={currentQuestion} question={question}/> : <QuizRoomPlayerPage currentAnswer={currentAnswer} currentTurn={turn} currentQuestion={currentQuestion} question={question}/>}</>
 }
 
 export default Game;

@@ -51,7 +51,6 @@ export const Video = styled.div<VideoProps>`
 
 const QuizRoomPlayerPage = ({currentAnswer, currentTurn, currentQuestion, question}: {currentAnswer: string, currentTurn: string, currentQuestion: number, question: QuestionModel | undefined}) => {
 	const [isPlaying, setIsPlaying] = useState(true);
-    const [name, setName] = useContext(MeetContext);
 
     const { gameId } = useParams();
 
@@ -59,14 +58,7 @@ const QuizRoomPlayerPage = ({currentAnswer, currentTurn, currentQuestion, questi
 
     const userId = authed?.uid || "";
 
-    setName("imie");
-
 	const answers = question?.answers;
-	const observers = [
-		{ name: "Kamil", ID: "1" },
-		{ name: "Donata", ID: "2" },
-		{ name: "Rafał", ID: "3" },
-	];
 
     const handleAnswer = async (bet: boolean) => {
         await addTurnToGameAsViewer({gameId: gameId || "", userId, bet });
@@ -97,7 +89,6 @@ const QuizRoomPlayerPage = ({currentAnswer, currentTurn, currentQuestion, questi
                 <GameViewContainer>
                     <FlexWrapper direction='column' align-items='center'>
                         <TitlePic marginBottom='0px' />
-                        {/* <VideoFrame /> */}
                         {/* <Video id={`player${player.ID}`}width={666} height={400}>
                             VideoComponent
                         </Video> */}
