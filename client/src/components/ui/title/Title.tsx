@@ -34,16 +34,34 @@ const Title = ({ showButton }: { showButton: boolean }) => {
     navigate("/");
   };
 
+  const navigateToLobbyList = () => {
+    navigate("/lobby-list");
+  };
+
   const handleSignOut = async () => {
     await userSignOut();
     removeUid("TON_uid");
     navigateToHomePage();
   };
+
+  const handleLobbyList = () => {
+    navigateToLobbyList();
+  };
+
   return (
     <>
       {showButton ? (
         <TitleContainer>
           <TitlePic />
+          <Button
+            width={12}
+            height={4}
+            fontSize="mds"
+            style={{ marginRight: "1%", marginTop: "2%" }}
+            onClick={() => handleLobbyList()}
+          >
+            POWRÓT
+          </Button>
           <Button
             width={12}
             height={4}

@@ -22,7 +22,7 @@ const LandingPage = () => {
   };
 
   const navigateToLobbyPage = () => {
-    navigate("/current-lobby");
+    navigate("/lobby-list");
   };
 
 
