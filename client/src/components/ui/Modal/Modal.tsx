@@ -2,10 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import Form from "../../views/QuizRoomTrollPage/Form";
 import { FlexWrapper } from "../../wrapper/FlexCenter/FlexWrapper.style";
-import { GridContainer } from "../../wrapper/FlexCenter/GridContainter.style";
 import { Button } from "../Button/Button.style";
 import { Input } from "../Input/Input";
 import { Typography } from "../Typography/Typography";
+import { useNavigate } from "react-router-dom";
+
 
 
 const ModalFlexWrapper = styled(FlexWrapper)`
@@ -37,6 +38,17 @@ const TypographAboveForm = styled(Typography)`
 `
 
 function Modal({ setOpenModal }: {setOpenModal: any}) {
+      const navigate = useNavigate();
+
+        const navigateToLobby = () => {
+    navigate("/lobby-list");
+  };
+
+const handleChange =  () => {
+      return navigateToLobby();
+
+  }
+
   return (
  
       <ModalContainer>
@@ -56,14 +68,8 @@ function Modal({ setOpenModal }: {setOpenModal: any}) {
               <TypographAboveForm>Jakie odruchy zaobserwowałeś u Szulera?</TypographAboveForm>    
             <Form/>
             <ModalFlexWrapper>
-               <Button
-            onClick={() => {
-              setOpenModal(false);
-            }}
-            id="cancelBtn"
-          >
-            Pomiń
-            </Button>
+                     <Button onClick={() => handleChange()}>Pomiń</Button>
+
             <Button>Wyślij</Button> 
             </ModalFlexWrapper>
           

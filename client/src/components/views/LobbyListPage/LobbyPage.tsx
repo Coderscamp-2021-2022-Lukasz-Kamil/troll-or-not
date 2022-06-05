@@ -43,6 +43,7 @@ export const LobbyPage = () => {
   const data = useMemo<Lobby[]>(() => games, [games]);
   console.log(games);
   const handleJoinGame = async (gameId: string) => {
+    console.log("join")
     await joinToGame({ gameId, userId: auth.currentUser!.uid });
     navigate(`/before-game/${gameId}`);
   };

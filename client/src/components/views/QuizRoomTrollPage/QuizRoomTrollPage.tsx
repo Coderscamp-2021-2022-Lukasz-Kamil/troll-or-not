@@ -82,7 +82,7 @@ const QuizRoomTrollPage = ({currentTurn, currentQuestion, question}: {currentTur
                         {currentTurn === "answering" && <CountdownCircleTimer
 								isPlaying
 								size={70}
-								duration={30}
+								duration={40}
 								colors={["#236B11", "#004777", "#F7B801", "#A30000", "#A30000"]}
 								colorsTime={[30, 15, 12, 5, 0]}
 								onComplete={() => {
