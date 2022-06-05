@@ -10,7 +10,7 @@ import RegistrationPage from "./components/views/RegistrationPage/RegistrationPa
 import { LobbyPage } from "./components/views/LobbyListPage/LobbyPage";
 import BeforeGamePage from "./components/views/BeforeGamePage/BeforeGamePage";
 import QuizRoomPlayerPage from "./components/views/QuizRoomPlayerPage/QuizRoomPlayerPage";
-import QuizRoomTrollPage from "./components/views/QuizRoomTrollPage/QuizRoomTrollPage";
+// import QuizRoomTrollPage from "./components/views/QuizRoomTrollPage/QuizRoomTrollPage";
 import NotFoundPage from "./components/views/NotFound/NotFoundPage";
 import ProtectedRoutes from "./components/ProtectedRoutes/ProtectedRouts";
 
