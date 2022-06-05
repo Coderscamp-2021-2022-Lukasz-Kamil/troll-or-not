@@ -2,7 +2,7 @@ import React, {useCallback, useContext, useEffect} from 'react';
 import { MeetContext } from "./meetContext";
 
 
-const VideoFrame = () => {
+const VideoFrame = ({gameId}) => {
 
     // const { participant, jitsiName, setJitsiApi } = useMeetingEvents();
 
@@ -39,20 +39,17 @@ const VideoFrame = () => {
   const domain = "meet.jit.si";
   let api = {};
 
-
-  // THIS IS TO EXTRACT THE NAME WHICH WAS FILLED IN THE FIRST PAGE
   const [name] = useContext(MeetContext);
 
-  const startMeet = useCallback(() => {
+  useEffect(() => {
     const options = {
-      roomName: "jkashdfjkashdkjashkjd",
+      roomName: `room-${gameId}`,
       width: "100%",
       height: "100%",
       configOverwrite: { prejoinPageEnabled: false },
       interfaceConfigOverwrite: {
         // overwrite interface properties if you want
       },
-      // VIDEO FRAME WILL BE ADDED HERE
       parentNode: document.querySelector("#meet"),
       userInfo: {
         displayName: name,
@@ -67,15 +64,15 @@ const VideoFrame = () => {
     //   videoConferenceJoined: handleVideoConferenceJoined,
     //   videoConferenceLeft: handleVideoConferenceLeft,
     // });
-  }, [api]);
+  }, []);
 
-  useEffect(() => {
-    if (window.JitsiMeetExternalAPI) {
-      startMeet();
-    } else {
-      alert("JitsiMeetExternalAPI not loaded");
-    }
-  }, [startMeet]);
+  // useEffect(() => {
+  //   if (window.JitsiMeetExternalAPI) {
+  //     startMeet();
+  //   } else {
+  //     alert("JitsiMeetExternalAPI not loaded");
+  //   }
+  // }, [gameId, startMeet]);
 
     return <div id="meet"></div>;
 }
