@@ -21,7 +21,7 @@ import { query, collection, onSnapshot, where } from "firebase/firestore";
 import { Button } from "../../ui/Button/Button.style";
 import { joinToGame } from "../../../services/games/joinToGame";
 import { useNavigate } from "react-router";
-import { addGame } from "../../../services/games/createGame";
+import { AddNewGame } from "./AddForm";
 
 interface Lobby {
   id: string;
@@ -32,18 +32,19 @@ interface Lobby {
 
 export const LobbyPage = () => {
   const [games, setGames] = useState<Lobby[]>([]);
+  const [showForm, setShowForm] = useState(false);
+
+  const showAddForm = () => {
+    setShowForm(!showForm);
+  };
 
   const navigate = useNavigate();
 
-  const authed = auth.currentUser;
-  const userId = authed?.uid || "";
-
   const data = useMemo<Lobby[]>(() => games, [games]);
-
+  console.log(games);
   const handleJoinGame = async (gameId: string) => {
     await joinToGame({ gameId, userId: auth.currentUser!.uid });
     navigate(`/before-game/${gameId}`);
-    
   };
   const columns = useMemo<Column<Lobby>[]>(
     () => [
@@ -122,12 +123,6 @@ export const LobbyPage = () => {
     });
   }, []);
 
-  const handleCreateGame = async () => {
-    const id = await addGame({name: "super_nazwa", host: userId, players: 2})
-    navigate(`/before-game/${id}`);
-
-  }
-
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data }, useFilters);
 
@@ -178,8 +173,8 @@ export const LobbyPage = () => {
               })}
             </TableBody>
           </Table>
-          {/* oczywiscie to do wyjebania potem, potrzebowałem na uzytek stworzenia gry */}
-          <ButtonGame onClick={() => handleCreateGame()}>Stwórz grę</ButtonGame>
+          <ButtonGame onClick={() => showAddForm()}>Stwórz grę</ButtonGame>
+          {showForm ? <AddNewGame /> : <div></div>}
         </TableWrapper>
       </PageWrapper>
       <SlideOutPanel />
