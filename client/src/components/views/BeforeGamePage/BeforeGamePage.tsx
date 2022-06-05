@@ -53,7 +53,6 @@ const BeforeGamePage = () => {
   const handleStartGame = async () => {
     await startGame({gameId: gameId || ""});
     navigate(`/current-lobby/${gameId}`);
-
   }
 
   const users = ["Wesoły Stefan", "Kolorowy Marian", "Zimny Łokiec", "Rudolf Czerowononosy"];

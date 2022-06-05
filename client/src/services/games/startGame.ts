@@ -27,17 +27,14 @@ export async function createRounds(roundsAmount: number, userIds: string[]) {
     where("isConfirmed", "==", true)
   );
   const questions = await getDocs(q);
-
   const questionsInGameAmount = roundsAmount * QUESTIONS_PER_ROUND;
 
   const questionsAmount = questions.size;
 
-  const random = randomQuestions(questionsInGameAmount, questionsAmount);
+//   const random = randomQuestions(questionsInGameAmount, questionsAmount);
 
   const promises = questions.docs.map(async (doc, index) => {
-    if (random.indexOf(index) !== -1) {
       return await doc.data();
-    }
   });
 
   const questionsResponse = await (
@@ -45,8 +42,8 @@ export async function createRounds(roundsAmount: number, userIds: string[]) {
   ).filter((doc) => doc);
 
   let rounds: any = [];
+
   for (let i = 0; i < roundsAmount; i++) {
-    console.log(i);
     rounds.push({
       currentQuestion: 1,
       answeringPlayer: userIds[i],
@@ -55,14 +52,40 @@ export async function createRounds(roundsAmount: number, userIds: string[]) {
     });
   }
 
-  questionsResponse.forEach((question, index) => {
-    const indexForRound = Math.floor(index / 6);
+  const sortedA = questionsResponse.sort((a, b) => {
+      return a.order - b.order;
+  })
 
-    console.log(rounds);
+  const sortedB = questionsResponse.sort((a, b) => {
+    return b.order - a.order;
+})
 
-    console.log(indexForRound);
-    rounds[indexForRound].questions.push(question);
+  sortedA.forEach((question, index) => {
+    // sortedA indexForRound = Math.floor(index / 6);
+    rounds[0].questions.push(question);
+    rounds[1].questions.push(question);
   });
+
+  sortedB.forEach((question, index) => {
+    // sortedA indexForRound = Math.floor(index / 6);
+    if (roundsAmount >= 3) {
+        rounds[2].questions.push(question);
+    }
+
+    if (roundsAmount >= 4) {
+        rounds[3].questions.push(question);
+    }
+  });
+
+  rounds[0].questions.push(sortedA[0])
+  rounds[1].questions.push(sortedA[0])
+  if(roundsAmount >= 3) {
+    rounds[2].questions.push(sortedA[0])
+
+  }
+  if(roundsAmount >= 3) {
+    rounds[3].questions.push(sortedA[0])
+  }
 
   return rounds;
 }
@@ -81,6 +104,7 @@ export async function startGame({ gameId }: StartGameInput) {
   const userIds = gameData.participants.map((participant: any) => participant.user);
 
   const rounds = await createRounds(gameRoundsAmount, userIds);
+  console.log(rounds);
 
     await updateDoc(gameRef, {
       status: "ongoing",
@@ -88,5 +112,6 @@ export async function startGame({ gameId }: StartGameInput) {
       rounds,
       currentPoints: userIds.map((userId: string) => ({player: userId, points: 0})),
       currentTurn: "answering",
+      currentAnswer: ""
     });
 }
