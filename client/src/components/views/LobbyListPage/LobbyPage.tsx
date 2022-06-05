@@ -17,11 +17,7 @@ import {
   PageWrapper,
 } from "./LobbyPage.styled";
 import { auth, db } from "../../../services/firebase";
-import {
-  query,
-  collection,
-  onSnapshot,
-} from "firebase/firestore";
+import { query, collection, onSnapshot } from "firebase/firestore";
 import { Button } from "../../ui/Button/Button.style";
 import { joinToGame } from "../../../services/games/joinToGame";
 import { useNavigate } from "react-router";
@@ -82,6 +78,10 @@ export const LobbyPage = () => {
               return cell.value === "open" ? (
                 <div className="align-center">
                   <Button
+                    width={8}
+                    height={6}
+                    margin="0 15px"
+                    fontSize="mds"
                     className="activate align-center"
                     value={cell.row.values.id}
                     onClick={() => handleJoinGame(cell.row.original.id)}
@@ -134,7 +134,7 @@ export const LobbyPage = () => {
   return (
     <>
       <PageWrapper>
-        <Title showButton={true}/>
+        <Title showButton={true} />
         <TableWrapper>
           <Table {...getTableProps()}>
             <TableHead>

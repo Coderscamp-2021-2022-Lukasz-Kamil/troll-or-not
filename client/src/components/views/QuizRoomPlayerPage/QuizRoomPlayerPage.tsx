@@ -19,34 +19,34 @@ declare var JitsiMeetExternalAPI: any;
 
 
 export const GameViewContainer = styled.div`
-	display: grid;
-	grid-template-columns: 2fr 1fr;
-	max-width: 1440px;
-	place-items: center;
-	color: ${theme.colors.common.textColor};
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  max-width: 1440px;
+  place-items: center;
+  color: ${theme.colors.common.textColor};
 `;
 
 export const AnswersContainer = styled.div`
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	place-items: center;
-	margin-bottom: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  place-items: center;
+  margin-bottom: 20px;
 `;
 
 interface VideoProps {
-	height?: number;
-	width?: number;
+  height?: number;
+  width?: number;
 }
 
 export const Video = styled.div<VideoProps>`
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	width: ${({ width }) => (width ? width : 350)}px;
-	height: ${({ height }) => (height ? height : 350)}px;
-	place-items: start;
-	border: 2px solid;
-	border-color: ${theme.colors.card.primary};
-	border-radius: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: ${({ width }) => (width ? width : 350)}px;
+  height: ${({ height }) => (height ? height : 350)}px;
+  place-items: start;
+  border: 2px solid;
+  border-color: ${theme.colors.card.primary};
+  border-radius: 10px;
 `;
 
 const QuizRoomPlayerPage = ({currentAnswer, currentTurn, currentQuestion, question}: {currentAnswer: string, currentTurn: string, currentQuestion: number, question: QuestionModel | undefined}) => {

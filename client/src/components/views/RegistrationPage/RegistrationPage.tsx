@@ -13,21 +13,21 @@ import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-
 const SiteTitle = styled(Typography)`
   color: ${({ theme }) => theme.colors.common.textColorGold};
   text-transform: uppercase;
+  font-size: ${({ theme }) => theme.size.desktop.mdl}px;
 `;
 
 const Link = styled.a`
   color: ${({ theme }) => theme.colors.common.textColorGold};
   text-decoration: none;
-  font-size: ${({ theme }) => theme.size.desktop.lg}px;
+  font-size: ${({ theme }) => theme.size.desktop.md}px;
 `;
 
 const FlexWrapperLink = styled(FlexWrapper)`
   gap: 20px;
-  margin: 20px 0 20px 20px;
+  margin: 10px;
 `;
 
 const RegistrationPage = () => {
@@ -41,8 +41,8 @@ const RegistrationPage = () => {
   const navigate = useNavigate();
 
   const navigateToLobby = () => {
-      navigate('/lobby-list');
-  }
+    navigate("/lobby-list");
+  };
 
   const handleSignUp = async () => {
     try {
@@ -55,7 +55,7 @@ const RegistrationPage = () => {
       setUid("TON_uid", user.uid);
       navigateToLobby();
     } catch (err: any) {
-        const message = err.message ? err.message : 'Nie udało się zarejestrować';
+      const message = err.message ? err.message : "Nie udało się zarejestrować";
       return toast.error(message);
     }
   };
@@ -81,7 +81,7 @@ const RegistrationPage = () => {
 
   return (
     <>
-      <Title showButton={false}/>
+      <Title showButton={false} />
       <ToastContainer />
       <LeftSideContainer>
         <FlexWrapper direction="column">

@@ -16,7 +16,7 @@ export const TitleIco = styled.img.attrs({
 
 export const TitlePic = styled(TitleIco)<ITitle>`
   width: ${({ width }) => (width ? width : 800)}px;
-  margin-bottom: ${({ marginBottom }) => (marginBottom ? marginBottom : 80)}px;
+  margin-bottom: ${({ marginBottom }) => (marginBottom ? marginBottom : 30)}px;
 `;
 
 export const TitleContainer = styled.div`
@@ -45,6 +45,8 @@ const Title = ({ showButton }: { showButton: boolean }) => {
         <TitleContainer>
           <TitlePic />
           <Button
+            width={10}
+            fontSize="mds"
             style={{ marginRight: "5%", marginTop: "2%" }}
             onClick={() => handleSignOut()}
           >
