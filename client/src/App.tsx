@@ -2,102 +2,45 @@ import React, { useEffect, useState } from "react";
 import GlobalStyles from "./global-styles/GlobalStyles";
 import { ThemeProvider } from "styled-components";
 import { theme } from "./theme/theme";
-import LandingPage from "./components/views/LandingPage/LandinPage";
-import {
-  googleSignIn,
-  signIn,
-  signUp,
-  userSignOut,
-} from "./services/user/auth";
-import { useCookies } from "react-cookie";
-import { addGame } from "./services/games/createGame";
-import { collection, onSnapshot, query } from "firebase/firestore";
-import { db, auth } from "./services/firebase";
-import { LobbyPage } from "./components/views/LobbyPage/LobbyPage";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import LandingPage from "./components/views/LandingPage/LandingPage";
+import AddQuestionPage from "./components/views/AddQuestionPage/AddQuestionPage";
+import LoginPage from "./components/views/LoginPage/LoginPage";
+import RegistrationPage from "./components/views/RegistrationPage/RegistrationPage";
+import { LobbyPage } from "./components/views/LobbyListPage/LobbyPage";
+import BeforeGamePage from "./components/views/BeforeGamePage/BeforeGamePage";
+import QuizRoomPlayerPage from "./components/views/QuizRoomPlayerPage/QuizRoomPlayerPage";
+// import QuizRoomTrollPage from "./components/views/QuizRoomTrollPage/QuizRoomTrollPage";
+import NotFoundPage from "./components/views/NotFound/NotFoundPage";
+import ProtectedRoutes from "./components/ProtectedRoutes/ProtectedRouts";
+import { MeetProvider } from "./components/video/meetContext";
+import Game from "./components/views/Game/Game";
 
 function App() {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [uid, setUid] = useCookies();
-  const [games, setGames] = useState<any>([]);
-
-  const handleCreateUser = async () => {
-    try {
-      const user = await signUp({
-        email: "superuser1@email.com",
-        password: "12345678",
-        confirmPassword: "12345678",
-        nickname: "krulikos",
-      });
-      setUid("TON_uid", user.uid);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const handleSignIn = async () => {
-    try {
-      const credentials = {
-        email: "superuser1@email.com",
-        password: "12345678",
-      };
-
-      const user = await signIn(credentials);
-      setUid("TON_uid", user.uid);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    const q = query(collection(db, "games_test"));
-
-    onSnapshot(q, (querySnapshot) => {
-      const data: any = [];
-      querySnapshot.forEach((doc) => {
-        data.push(doc.data());
-      });
-      setGames(data);
-    });
-  }, []);
-
-  const handleGoogle = async () => {
-    try {
-      const user = await googleSignIn();
-      setUid("TON_uid", user.uid);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyles />
-      <h3>Hello Troll :)</h3>
-      <button onClick={handleCreateUser}>REGISTER</button>
-      <button onClick={handleGoogle}>GOOGLE</button>
-      <button onClick={userSignOut}>SIGN OUT</button>
-      <button onClick={handleSignIn}>SIGN IN</button>
-      <button
-        onClick={() =>
-          addGame({
-            name: "superName",
-            host: auth.currentUser?.uid || "",
-            players: 4,
-          })
-        }
-      >
-        ADD GAME
-      </button>
-      {games.length ? (
-        games.map((game: any, index: any) => {
-          return <p key={index}>{game.name}</p>;
-        })
-      ) : (
-        <></>
-      )}
-      <LandingPage />
-      <LobbyPage />
-    </ThemeProvider>
+    <MeetProvider>
+      <ThemeProvider theme={theme}>
+        <GlobalStyles />
+        <Router>
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/registration" element={<RegistrationPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+            <Route path="/" element={<ProtectedRoutes />}>
+              <Route path="/add-question" element={<AddQuestionPage />} />
+
+              <Route path="/lobby-list" element={<LobbyPage />} />
+              <Route path="/before-game/:gameId" element={<BeforeGamePage />} />
+              <Route
+                path="/current-lobby/:gameId"
+                element={<Game />}
+              />
+            </Route>
+          </Routes>
+        </Router>
+      </ThemeProvider>
+    </MeetProvider>
   );
 }
 

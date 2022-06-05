@@ -1,6 +1,5 @@
 import {
   createUserWithEmailAndPassword,
-  onAuthStateChanged,
   signInWithPopup,
   GoogleAuthProvider,
   signOut,
@@ -26,6 +25,7 @@ async function createNewUser(nickname: string, authID: string) {
     startGames: 0,
     points: 0,
     wins: 0,
+    isAdmin: false,
   });
 }
 
@@ -61,14 +61,15 @@ export async function signIn({
   return user;
 }
 // auth observer
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    const uid = user.uid;
-    console.log("uid: " + uid);
-  } else {
-    console.log("no user");
-  }
-});
+// onAuthStateChanged(auth, (user) => {
+//   if (user) {
+//     const uid = user.uid;
+//     authenticatedUser = user;
+//     console.log("uid: " + uid);
+//   } else {
+//     console.log("no user");
+//   }
+// });
 
 export async function googleSignIn(): Promise<User> {
   const { user } = await signInWithPopup(auth, new GoogleAuthProvider());
@@ -88,21 +89,3 @@ export async function userSignOut() {
     console.log(err);
   }
 }
-
-// export async function facebookSignIn() {
-//   try {
-//     const result = await signInWithPopup(auth, new FacebookAuthProvider());
-//     const user = result.user;
-
-//     const existingUser = await getUser(user.uid);
-
-//     if (!existingUser.length) {
-//       await addDoc(collection(db, "user_test"), {
-//         nickname: user.email,
-//         authID: user.uid,
-//       });
-//     }
-//   } catch (err) {
-//     console.log(err);
-//   }
-// }

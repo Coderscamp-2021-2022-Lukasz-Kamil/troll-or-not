@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 import { Button } from "../../ui/Button/Button.style";
 import { Input } from "../../ui/Input/Input";
@@ -18,9 +19,9 @@ const AnswerButtonsWrapper = styled.div`
     row-gap: 50px;
 `
 
-const LandingPage = () => {
+const NotFoundPage = () => {
     return (
-        <LandingWrapper>Landing Page
+        <LandingWrapper>NotFoundPage
             <Button>Sprawdź!</Button>
             <AnswerButtonContainer>
                 <AnswerButtonsWrapper>
@@ -49,4 +50,4 @@ const LandingPage = () => {
     )
 }
 
-export default LandingPage;
+export default NotFoundPage;
