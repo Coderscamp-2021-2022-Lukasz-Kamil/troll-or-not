@@ -24,6 +24,8 @@ import {
 } from "firebase/firestore";
 import { Button } from "../../ui/Button/Button.style";
 import { joinToGame } from "../../../services/games/joinToGame";
+import { useNavigate } from "react-router";
+import { addGame } from "../../../services/games/createGame";
 
 interface Lobby {
   id: string;
@@ -35,10 +37,17 @@ interface Lobby {
 export const LobbyPage = () => {
   const [games, setGames] = useState<Lobby[]>([]);
 
+  const navigate = useNavigate();
+
+  const authed = auth.currentUser;
+  const userId = authed?.uid || "";
+
   const data = useMemo<Lobby[]>(() => games, [games]);
 
   const handleJoinGame = async (gameId: string) => {
-    joinToGame({ gameId, userId: auth.currentUser!.uid });
+    await joinToGame({ gameId, userId: auth.currentUser!.uid });
+    navigate(`/before-game/${gameId}`);
+    
   };
   const columns = useMemo<Column<Lobby>[]>(
     () => [
@@ -72,7 +81,6 @@ export const LobbyPage = () => {
               console.log(cell.row.original.id);
               return cell.value === "open" ? (
                 <div className="align-center">
-                  {cell.value}
                   <Button
                     className="activate align-center"
                     value={cell.row.values.id}
@@ -113,6 +121,12 @@ export const LobbyPage = () => {
       );
     });
   }, []);
+
+  const handleCreateGame = async () => {
+    const id = await addGame({name: "super_nazwa", host: userId, players: 2})
+    navigate(`/before-game/${id}`);
+
+  }
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data }, useFilters);
@@ -164,7 +178,8 @@ export const LobbyPage = () => {
               })}
             </TableBody>
           </Table>
-          <ButtonGame>Stwórz grę</ButtonGame>
+          {/* oczywiscie to do wyjebania potem, potrzebowałem na uzytek stworzenia gry */}
+          <ButtonGame onClick={() => handleCreateGame()}>Stwórz grę</ButtonGame>
         </TableWrapper>
       </PageWrapper>
       <SlideOutPanel />

@@ -19,14 +19,13 @@ export type AnsweringTurnInput = {
 	gameId: string;
 	userId: string;
 	answer: boolean;
-	round: number;
+    answerText: string;
 };
 
 export type ViewerTurnInput = {
 	gameId: string;
 	userId: string;
 	bet: boolean;
-	round: number;
 };
 
 type Participant = {
@@ -68,4 +67,6 @@ export type GameModel = {
 	currentPoints: CurrentPoints[];
 	currentRound: number;
 	rounds: Round[];
+    currentTurn: "answering" | "observer"
+    currentAnswer: string;
 };

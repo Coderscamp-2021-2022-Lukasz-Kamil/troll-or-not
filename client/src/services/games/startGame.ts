@@ -86,6 +86,7 @@ export async function startGame({ gameId }: StartGameInput) {
       status: "ongoing",
       currentRound: 1,
       rounds,
-      currentPoints: userIds.map((userId: string) => ({player: userId, points: 0}))
+      currentPoints: userIds.map((userId: string) => ({player: userId, points: 0})),
+      currentTurn: "answering",
     });
 }

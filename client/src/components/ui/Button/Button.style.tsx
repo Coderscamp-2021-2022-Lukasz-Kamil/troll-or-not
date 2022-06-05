@@ -7,6 +7,7 @@ interface ButtonProps{
     width?: number;
     fontSize?: | "lg" | "xxl";
     hoverBackground?: | "hover" | "falseHover" | "trueHover";
+    shouldNotHover?: boolean;
 }
 
 export const Button = styled.button<ButtonProps>`
@@ -23,8 +24,8 @@ export const Button = styled.button<ButtonProps>`
     cursor: pointer;
     font-family: 'Kaushan Script', cursive;
 ;
-     &:hover {
-    background: ${({ theme , hoverBackground}) =>
-    hoverBackground ? theme.colors.button[hoverBackground] : theme.colors.button.hover};
+    &:hover {
+      background: ${({ theme , hoverBackground, shouldNotHover}) =>
+      shouldNotHover ? '' : hoverBackground ? theme.colors.button[hoverBackground] : theme.colors.button.hover};
   }
 `
