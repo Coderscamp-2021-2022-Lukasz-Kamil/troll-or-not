@@ -114,6 +114,8 @@ export async function turnFinish({gameRef, gameData}: {gameRef: DocumentReferenc
       currentPoints: pointsUpdated,
       currentRound: currentRoundNumber,
       status,
+      currentTurn: "answering",
+      currentAnswer: ""
     });
 
     return response;
