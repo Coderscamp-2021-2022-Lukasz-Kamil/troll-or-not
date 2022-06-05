@@ -13,6 +13,7 @@ import { googleSignIn, signIn } from "../../../services/user/auth";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import { Grid } from "../AddQuestionPage/AddQuestionPage.styled";
 import "react-toastify/dist/ReactToastify.css";
 
 const SiteTitle = styled(Typography)`
@@ -23,7 +24,7 @@ const SiteTitle = styled(Typography)`
 const Link = styled.a`
   color: ${({ theme }) => theme.colors.common.textColorGold};
   text-decoration: none;
-  font-size: ${({ theme }) => theme.size.desktop.lg}px;
+  font-size: ${({ theme }) => theme.size.desktop.md}px;
 `;
 const FlexWrapperLink = styled(FlexWrapper)`
   gap: 20px;
@@ -69,11 +70,11 @@ const LoginPage = () => {
     }
   };
   return (
-    <div>
-      <Title showButton={false}/>
+    <>
+      <Title showButton={false} />
       <ToastContainer />
       <LeftSideContainer>
-        <GridContainer>
+        <Grid>
           <div></div>
           <SiteTitle fontSize="xl">Logowanie</SiteTitle>
           <TypographyGrid>E-mail</TypographyGrid>
@@ -91,24 +92,18 @@ const LoginPage = () => {
             value={password}
           />
           <div></div>
-          <Button
-            width={300}
-            height={55}
-            background="secondary"
-            fontSize="lg"
-            onClick={() => handleSignIn()}
-          >
+          <Button background="secondary" onClick={() => handleSignIn()}>
             Zaloguj się
           </Button>
           <div></div>
           <ButtonWithIcon src={googleIcon} />
-        </GridContainer>
+        </Grid>
       </LeftSideContainer>
       <FlexWrapperLink justifyContent="flex-start">
         <Typography>Nie masz konta?</Typography>
         <Link href="/registration">Zarejestruj się</Link>
       </FlexWrapperLink>
-    </div>
+    </>
   );
 };
 
