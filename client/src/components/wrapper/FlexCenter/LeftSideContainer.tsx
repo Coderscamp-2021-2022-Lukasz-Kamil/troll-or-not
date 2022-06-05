@@ -1,5 +1,5 @@
 import styled from "styled-components";
 
 export const LeftSideContainer = styled.div`
-    width: 60%;
-`
+  width: 50%;
+`;

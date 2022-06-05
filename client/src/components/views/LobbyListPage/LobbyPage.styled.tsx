@@ -58,8 +58,8 @@ export const TableData = styled.td`
 `;
 
 export const ButtonGame = styled(Button)`
-  width: 10vw;
+  width: 12vw;
   height: 6vh;
-  font-size: ${({ theme }) => theme.size.desktop.sm}px;
+  font-size: ${({ theme }) => theme.size.desktop.md}px;
   margin-top: 1rem;
 `;

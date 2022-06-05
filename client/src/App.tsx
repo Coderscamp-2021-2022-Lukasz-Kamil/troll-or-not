@@ -26,16 +26,14 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
           <Route path="/" element={<ProtectedRoutes />}>
             <Route path="/add-question" element={<AddQuestionPage />} />
-            
+
             <Route path="/lobby-list" element={<LobbyPage />} />
             <Route path="/current-lobby" element={<BeforeGamePage />} />
             <Route
               path="/current-lobby/player"
               element={<QuizRoomPlayerPage />}
             />
-            <Route path="/current-lobby/troll" element={<QuizRoomTrollPage />} />
           </Route>
-
         </Routes>
       </Router>
     </ThemeProvider>
