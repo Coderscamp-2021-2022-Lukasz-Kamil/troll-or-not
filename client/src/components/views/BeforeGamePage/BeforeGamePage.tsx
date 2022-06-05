@@ -56,13 +56,15 @@ const BeforeGamePage = () => {
 
   }
 
+  const users = ["Wesoły Stefan", "Kolorowy Marian", "Zimny Łokiec", "Rudolf Czerowononosy"];
+
   useEffect(() => {
     onSnapshot(doc(db, "games_test", gameId || ""), (querySnapshot) => {
       const data = querySnapshot.data() as GameModel;
       setGame(data)
-      setParticipants(data.participants.map(participant => {
+      setParticipants(data.participants.map((participant, index) => {
         return {
-          gamerName: participant.user,
+          gamerName: users[index],
           readiness: participant.isReady ? "GOTOWY" : "NIEGOTOWY"
         }
       }))

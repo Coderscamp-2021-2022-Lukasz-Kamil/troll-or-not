@@ -6,6 +6,8 @@ export async function getUserNickName(userId: string) {
 
     const data = await userRef.data();
 
+    console.log(data);
+
     return data?.nickname;
 
 }

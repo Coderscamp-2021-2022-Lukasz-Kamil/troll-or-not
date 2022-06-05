@@ -23,9 +23,10 @@ export type AnsweringTurnInput = {
 };
 
 export type ViewerTurnInput = {
-  gameId: string;
-  userId: string;
-  bet: boolean;
+
+	gameId: string;
+	userId: string;
+	bet?: boolean;
 };
 
 type Participant = {
@@ -34,20 +35,16 @@ type Participant = {
   failures: number;
 };
 
-<<<<<<< Updated upstream
+
 export type CurrentPoints = {
 	player: string;
 	points: number;
-=======
-type CurrentPoints = {
-  player: string;
-  points: number;
->>>>>>> Stashed changes
 };
 
 type Viewer = {
-  player: string;
-  bet: boolean;
+	player: string;
+	bet?: boolean;
+    notAnswered?: boolean;
 };
 
 type Turn = {
