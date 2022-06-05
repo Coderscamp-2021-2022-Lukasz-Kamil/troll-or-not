@@ -49,7 +49,6 @@ const Game = () => {
           setTurn(data.currentTurn);
           setCurrentPoints(data.currentPoints)
           setCurrentAnswer(data.currentAnswer)
-          console.log("no loading")
           if(data.status === "finished") {
               setIsFinished(true);
           }
@@ -59,7 +58,6 @@ const Game = () => {
 
 
     if (loading) {
-        console.log("loading")
         return <></>
     }
 
@@ -68,7 +66,7 @@ const Game = () => {
     }
 
     return <>                        <VideoFrame gameId={gameId}/>
-    {userId === answering ? <QuizRoomTrollPage currentTurn={turn} currentQuestion={currentQuestion} question={question}/> : <QuizRoomPlayerPage currentAnswer={currentAnswer} currentTurn={turn} currentQuestion={currentQuestion} question={question}/>}</>
+    {userId === answering ? <QuizRoomTrollPage currentTurn={turn} currentQuestion={currentQuestion} question={question}/> : <QuizRoomPlayerPage answering={answering} currentAnswer={currentAnswer} currentTurn={turn} currentQuestion={currentQuestion} question={question}/>}</>
 }
 
 export default Game;

@@ -25,7 +25,7 @@ export type AnsweringTurnInput = {
 export type ViewerTurnInput = {
 	gameId: string;
 	userId: string;
-	bet: boolean;
+	bet?: boolean;
 };
 
 type Participant = {
@@ -41,7 +41,8 @@ export type CurrentPoints = {
 
 type Viewer = {
 	player: string;
-	bet: boolean;
+	bet?: boolean;
+    notAnswered?: boolean;
 };
 
 type Turn = {

@@ -15,6 +15,8 @@ import { addTurnToGameAsViewer } from "../../../services/games/addTurnToGame";
 import { usePagination } from "react-table";
 import { useParams } from "react-router";
 import { auth } from "../../../services/firebase";
+import { getUserNickName } from "../../../services/user/getUserNickName";
+import { useCookies } from "react-cookie";
 declare var JitsiMeetExternalAPI: any;
 
 
@@ -49,51 +51,40 @@ export const Video = styled.div<VideoProps>`
   border-radius: 10px;
 `;
 
-const QuizRoomPlayerPage = ({currentAnswer, currentTurn, currentQuestion, question}: {currentAnswer: string, currentTurn: string, currentQuestion: number, question: QuestionModel | undefined}) => {
+const QuizRoomPlayerPage = ({answering, currentAnswer, currentTurn, currentQuestion, question}: {answering: string, currentAnswer: string, currentTurn: string, currentQuestion: number, question: QuestionModel | undefined}) => {
 	const [isPlaying, setIsPlaying] = useState(true);
+    const [nickname, setNickname] = useState("");
+    // const [uid] = useCookies();
 
     const { gameId } = useParams();
 
     const authed = auth.currentUser;
 
-    const userId = authed?.uid || "";
+    const userId = authed ? authed.uid : "";
+
+    // const userId = uid["TON_uid"]
 
 	const answers = question?.answers;
 
-    const handleAnswer = async (bet: boolean) => {
+    const handleAnswer = async (bet?: boolean) => {
         await addTurnToGameAsViewer({gameId: gameId || "", userId, bet });
     }
-	const player = { name: "Mateusz", ID: "4" };
 
-        // const domain = "meet.jit.si";
-        //     const options = {
-        //       roomName: "nowa-gra",
-        //       width: 666,
-        //       height: 400,
-        //       parentNode: document.querySelector(`#player${player.ID}`),
-        //       configOverwrite: {
-        //         prejoinPageEnabled: false,
-        //         toolbarButtons: [],
-        //       },
-        //       userInfo: {
-        //         displayName: player.name,
-        //       },
-        //     };
-        //     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        //     const api = new JitsiMeetExternalAPI(domain, options);
-
-
+    // useEffect(() => {
+    //     getUserNickName(userId).then((data) => {
+    //         setNickname(data)
+    //         console.log(data);
+    //     })
+    // }, [])
+	// const player = { name: "Mateusz", ID: "4" };
 
 		return (
             <FlexWrapper padding={30} justifyContent='center'>
                 <GameViewContainer>
                     <FlexWrapper direction='column' align-items='center'>
                         <TitlePic marginBottom='0px' />
-                        {/* <Video id={`player${player.ID}`}width={666} height={400}>
-                            VideoComponent
-                        </Video> */}
                         {currentTurn === "observer" && <Typography fontSize="mds">Teraz twoja kolej!</Typography>}
-                        <Typography fontSize='mds'>{player?.name}</Typography>
+                        <Typography fontSize='mds'>{nickname}</Typography>
                         <FlexWrapper direction='column'>
                             <Typography fontSize='lg'>{question?.content}</Typography>
                             <AnswersContainer>
@@ -146,21 +137,13 @@ const QuizRoomPlayerPage = ({currentAnswer, currentTurn, currentQuestion, questi
                                     colorsTime={[30, 15, 12, 5, 0]}
                                     onComplete={() => {
                                         setIsPlaying(false);
+                                        handleAnswer()
                                     }}>
                                     {({ remainingTime }) => remainingTime}
                                 </CountdownCircleTimer>
                             </FlexWrapper>}
                         </FlexWrapper>
                     </FlexWrapper>
-                    {/* <FlexWrapper direction='column' justifyContent='flex-start'>
-                        {observers.map(observer => (
-                            <>
-                                <Video id={`observer${observer.ID}`} width={244} height={244}>
-                                </Video>
-                                <Typography fontSize='mds'>{observer.name}</Typography>
-                            </>
-                        ))}
-                    </FlexWrapper> */}
                 </GameViewContainer>
             </FlexWrapper>
         );
