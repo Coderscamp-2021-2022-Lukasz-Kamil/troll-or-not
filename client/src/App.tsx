@@ -13,30 +13,34 @@ import QuizRoomPlayerPage from "./components/views/QuizRoomPlayerPage/QuizRoomPl
 // import QuizRoomTrollPage from "./components/views/QuizRoomTrollPage/QuizRoomTrollPage";
 import NotFoundPage from "./components/views/NotFound/NotFoundPage";
 import ProtectedRoutes from "./components/ProtectedRoutes/ProtectedRouts";
+import { MeetProvider } from "./components/video/meetContext";
+import Game from "./components/views/Game/Game";
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyles />
-      <Router>
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/registration" element={<RegistrationPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-          <Route path="/" element={<ProtectedRoutes />}>
-            <Route path="/add-question" element={<AddQuestionPage />} />
+    <MeetProvider>
+      <ThemeProvider theme={theme}>
+        <GlobalStyles />
+        <Router>
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/registration" element={<RegistrationPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+            <Route path="/" element={<ProtectedRoutes />}>
+              <Route path="/add-question" element={<AddQuestionPage />} />
 
-            <Route path="/lobby-list" element={<LobbyPage />} />
-            <Route path="/current-lobby" element={<BeforeGamePage />} />
-            <Route
-              path="/current-lobby/player"
-              element={<QuizRoomPlayerPage />}
-            />
-          </Route>
-        </Routes>
-      </Router>
-    </ThemeProvider>
+              <Route path="/lobby-list" element={<LobbyPage />} />
+              <Route path="/before-game/:gameId" element={<BeforeGamePage />} />
+              <Route
+                path="/current-lobby/:gameId"
+                element={<Game />}
+              />
+            </Route>
+          </Routes>
+        </Router>
+      </ThemeProvider>
+    </MeetProvider>
   );
 }
 

@@ -16,4 +16,6 @@ export async function addGame({name, host, players}: CreateGameInput) {
           }],
         });
         console.log("Document written with ID: ", docRef.id);
+
+        return docRef.id;
 }
