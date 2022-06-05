@@ -53,7 +53,7 @@ const QuizRoomPlayerPage = () => {
 		<FlexWrapper justifyContent='center'>
 			<GameViewContainer>
 				<FlexWrapper direction='column' align-items='center'>
-					<TitlePic marginBottom='0px' />
+					<TitlePic marginBottom='0' />
 					<Video width={666} height={400}>
 						VideoComponent
 					</Video>
