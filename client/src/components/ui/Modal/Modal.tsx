@@ -9,12 +9,20 @@ import { Typography } from "../Typography/Typography";
 
 
 const ModalFlexWrapper = styled(FlexWrapper)`
-    margin: 50px 0; 
+    margin: 20px 0 50px; 
+`
+
+const TypographyModal = styled(Typography)`
+    margin-bottom:50px;
 `
 
 const ModalContainer = styled.div`
-    width: 100vw;
-    height: 500px;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    width: 95vw;
+    height: 100vh;
     border-radius: 12px;
     background: ${({ theme}) =>
      theme.colors.button.primary};
@@ -24,6 +32,9 @@ const ModalContainer = styled.div`
     padding: 25px;
 `
 
+const TypographAboveForm = styled(Typography)`
+    margin-bottom: 20px;
+`
 
 function Modal({ setOpenModal }: {setOpenModal: any}) {
   return (
@@ -33,16 +44,16 @@ function Modal({ setOpenModal }: {setOpenModal: any}) {
           
         </div>
         <div >
-          <Typography>Ankieta o rozpoznawania kłamstw na podstawie obserwacji motoryki</Typography>
+          <TypographyModal fontSize="xxl">Ankieta o rozpoznawania kłamstw na podstawie obserwacji motoryki</TypographyModal>
         </div>
         <div >
-          <Typography>Jakie zastosowałeś techniki manipulacyjne?</Typography>
         </div>
         <div>
+              <Typography>Jakie zastosowałeś techniki manipulacyjne?</Typography>
             <ModalFlexWrapper>
-                <Input width={1000} height={48} />
+                <Input width={80} height={13} />
             </ModalFlexWrapper>
-                 
+              <TypographAboveForm>Jakie odruchy zaobserwowałeś u Szulera?</TypographAboveForm>    
             <Form/>
             <ModalFlexWrapper>
                <Button

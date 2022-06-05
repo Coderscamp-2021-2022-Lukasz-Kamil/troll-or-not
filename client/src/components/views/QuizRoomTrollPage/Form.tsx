@@ -15,14 +15,16 @@ const AnswersList = styled.div`
 `
 
 export const Answers: readonly FormProps[] = [
-  { value: 'purple', label: 'Purple'},
-  { value: 'red', label: 'Red' },
-  { value: 'orange', label: 'Orange' },
-  { value: 'yellow', label: 'Yellow' },
-  { value: 'green', label: 'Green' },
-  { value: 'forest', label: 'Forest' },
-  { value: 'slate', label: 'Slate' },
-  { value: 'silver', label: 'Silver' },
+  { value: 'nieregularny oddech', label: 'nieregularny oddech'},
+  { value: 'niepokój', label: 'niepokój' },
+  { value: 'dotykanie szyi', label: 'dotykanie szyi' },
+  { value: 'gryzienie paznokci', label: 'gryzienie paznokci' },
+  { value: 'zakrywanie ust', label: 'zakrywanie ust' },
+  { value: 'krzyżowanie ramion', label: 'krzyżowanie ramion' },
+  { value: 'zmiana barwy skóry', label: 'zmiana barwy skóry' },
+  { value: 'nadmierne pocenie', label: 'nadmierne pocenie' },
+  { value: 'wzruszanie ramionami', label: 'wzruszanie ramionami' },
+  { value: 'grożenie palcem', label: 'grożenie palcem' },
 ];
 
 

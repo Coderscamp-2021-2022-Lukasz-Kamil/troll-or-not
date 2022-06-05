@@ -45,9 +45,12 @@ const VideoFrame = ({gameId}) => {
     const options = {
       roomName: `room-${gameId}`,
       width: "100%",
-      height: "100%",
-      configOverwrite: { prejoinPageEnabled: false },
+      height: "200px",
+      configOverwrite: { prejoinPageEnabled: false, toolbarButtons: [],
+      },
       interfaceConfigOverwrite: {
+        TOOLBAR_BUTTONS: [
+        ] // ok
         // overwrite interface properties if you want
       },
       parentNode: document.querySelector("#meet"),

@@ -43,8 +43,11 @@ export async function addTurnToGameAsViewer({gameId, userId, bet}: ViewerTurnInp
     const rounds = gameData.rounds;
     const currentQuestion = gameData.rounds[currentRound-1].currentQuestion;
 
-
-    rounds[currentRound-1].turns[currentQuestion-1].viewers.push({player: userId, bet});
+    if(bet) {
+        rounds[currentRound-1].turns[currentQuestion-1].viewers.push({player: userId, bet});
+    } else {
+        rounds[currentRound-1].turns[currentQuestion-1].viewers.push({player: userId, notAnswered: true});
+    }
 
     await updateDoc(gameRef, {
         rounds

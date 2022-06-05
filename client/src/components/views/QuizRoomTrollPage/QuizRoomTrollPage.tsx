@@ -68,10 +68,7 @@ const QuizRoomTrollPage = ({currentTurn, currentQuestion, question}: {currentTur
         <GameViewContainer>
             <FlexWrapper direction="column" align-items="center">
                 <TitlePic marginBottom="0px"/>
-                {/* {isCurrentPlayer ? "" :
-                <Video width={666} height={400}>VideoComponent</Video>} */}
                 {currentTurn === "answering" && <Typography fontSize="mds">Teraz twoja kolej!</Typography>}
-                <Typography fontSize="mds">{player?.name}</Typography>
                 <FlexWrapper direction="column">
                     <Typography fontSize="lg">{question?.content}</Typography>
                     <AnswersContainer>
@@ -82,8 +79,6 @@ const QuizRoomTrollPage = ({currentTurn, currentQuestion, question}: {currentTur
                     <Typography fontSize="lg">{`Poprawna odpowiedź: ${question?.answers.find(answer => answer.isCorrect)?.content}`}</Typography>
 
                     <FlexWrapper justifyContent="space-between">
-                        {/* <Button background="true" hoverBackground="trueHover" width={300} height={70} fontSize="lg">Prawda</Button>
-                        <Button background="false" hoverBackground="falseHover" width={300} height={70} fontSize="lg">Fałsz</Button> */}
                         {currentTurn === "answering" && <CountdownCircleTimer
 								isPlaying
 								size={70}
@@ -97,15 +92,6 @@ const QuizRoomTrollPage = ({currentTurn, currentQuestion, question}: {currentTur
 							</CountdownCircleTimer>}
                     </FlexWrapper>
                 </FlexWrapper>
-            </FlexWrapper>
-            <FlexWrapper direction="column" justifyContent="flex-start">
-                {observers.map((observer) => (
-                    <>
-                    <Video width={244} height={244}>{observer.ID}</Video>
-                    <Typography fontSize="mds">{observer.name}</Typography>
-                    </>)
-                )}
-                <div>Timer</div> 
             </FlexWrapper>
         </GameViewContainer>
       </FlexWrapper>
