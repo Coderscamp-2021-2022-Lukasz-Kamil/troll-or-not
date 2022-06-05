@@ -21,7 +21,7 @@ const SiteTitle = styled(Typography)`
   text-transform: uppercase;
 `;
 
-const Link = styled.a`
+export const Link = styled.a`
   color: ${({ theme }) => theme.colors.common.textColorGold};
   text-decoration: none;
   font-size: ${({ theme }) => theme.size.desktop.md}px;
