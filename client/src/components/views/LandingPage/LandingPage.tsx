@@ -46,7 +46,6 @@ const LandingPage = () => {
   
  
      
-       { <Modal setOpenModal={setModalOpen} />} 
       <SlideOutPanel />
     </>
   );
