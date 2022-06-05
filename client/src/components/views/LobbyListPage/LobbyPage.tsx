@@ -17,7 +17,7 @@ import {
   PageWrapper,
 } from "./LobbyPage.styled";
 import { auth, db } from "../../../services/firebase";
-import { query, collection, onSnapshot } from "firebase/firestore";
+import { query, collection, onSnapshot, where } from "firebase/firestore";
 import { Button } from "../../ui/Button/Button.style";
 import { joinToGame } from "../../../services/games/joinToGame";
 import { useNavigate } from "react-router";
@@ -79,7 +79,7 @@ export const LobbyPage = () => {
                 <div className="align-center">
                   <Button
                     width={8}
-                    height={6}
+                    height={3}
                     margin="0 15px"
                     fontSize="mds"
                     className="activate align-center"
@@ -102,7 +102,7 @@ export const LobbyPage = () => {
   );
 
   useEffect(() => {
-    const q = query(collection(db, "games_test"));
+    const q = query(collection(db, "games_test"), where("status", "!=", "finished"));
 
     onSnapshot(q, (querySnapshot) => {
       const data: any[] = [];

@@ -92,7 +92,7 @@ const LoginPage = () => {
             value={password}
           />
           <div></div>
-          <Button background="secondary" onClick={() => handleSignIn()}>
+          <Button height={3} background="secondary" onClick={() => handleSignIn()}>
             Zaloguj się
           </Button>
           <div></div>

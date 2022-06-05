@@ -20,11 +20,11 @@ interface ButtonProps{
 
 export const Button = styled.button<ButtonProps>`
   width: ${({ width }) => (width ? width : 15)}vw;
-  height: ${({ height }) => (height ? height : 8)}vh;
+  height: ${({ height }) => (height ? height : 8)}vw;
   background: ${({ theme, background }) =>
     background ? theme.colors.button[background] : theme.colors.button.primary};
-font-size: ${({ theme, fontSize }) =>
-fontSize ? theme.size.desktop[fontSize] : theme.size.desktop.md}px;
+  font-size: ${({ theme, fontSize }) =>
+  fontSize ? theme.size.desktop[fontSize] : theme.size.desktop.md}px;
     border-radius: ${({ theme }) => theme.size.common.borderRadius};
     color: ${({ theme }) => theme.colors.common.textColor};
     border: 1px transparent;

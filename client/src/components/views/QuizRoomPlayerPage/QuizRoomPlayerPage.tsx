@@ -92,87 +92,87 @@ const QuizRoomPlayerPage = ({currentAnswer, currentTurn, currentQuestion, questi
 
 
 
-	return (
-		<FlexWrapper justifyContent='center'>
-			<GameViewContainer>
-				<FlexWrapper direction='column' align-items='center'>
-					<TitlePic marginBottom='0px' />
-                    {/* <VideoFrame /> */}
-					{/* <Video id={`player${player.ID}`}width={666} height={400}>
-						VideoComponent
-					</Video> */}
-                    {currentTurn === "observer" && <Typography fontSize="mds">Teraz twoja kolej!</Typography>}
-					<Typography fontSize='mds'>{player?.name}</Typography>
-					<FlexWrapper direction='column'>
-						<Typography fontSize='lg'>{question?.content}</Typography>
-						<AnswersContainer>
-							{answers?.map((answer: any) => {
-                                return currentAnswer === answer.content ?
-								<Button
-									background='primary'
-									width={300}
-									height={77}
-									fontSize='lg'
-                                    shouldNotHover={true}>
-									{answer?.content}
-								</Button>
-                                :
+		return (
+            <FlexWrapper padding={30} justifyContent='center'>
+                <GameViewContainer>
+                    <FlexWrapper direction='column' align-items='center'>
+                        <TitlePic marginBottom='0px' />
+                        {/* <VideoFrame /> */}
+                        {/* <Video id={`player${player.ID}`}width={666} height={400}>
+                            VideoComponent
+                        </Video> */}
+                        {currentTurn === "observer" && <Typography fontSize="mds">Teraz twoja kolej!</Typography>}
+                        <Typography fontSize='mds'>{player?.name}</Typography>
+                        <FlexWrapper direction='column'>
+                            <Typography fontSize='lg'>{question?.content}</Typography>
+                            <AnswersContainer>
+                                {answers?.map((answer: any) => {
+                                    return currentAnswer === answer.content ?
+                                    <Button
+                                        background='primary'
+                                        width={30}
+                                        height={6}
+                                        fontSize='lg'
+                                        shouldNotHover={true}>
+                                        {answer?.content}
+                                    </Button>
+                                    :
+                                    <Button
+                                        background='answer'
+                                        width={30}
+                                        height={6}
+                                        fontSize='lg'
+                                        shouldNotHover={true}>
+                                        {answer?.content}
+                                    </Button>
+    })}
+                            </AnswersContainer>
+                            {currentTurn === "observer" && <FlexWrapper justifyContent='space-between'>
                                 <Button
-									background='answer'
-									width={300}
-									height={77}
-									fontSize='lg'
-                                    shouldNotHover={true}>
-									{answer?.content}
-								</Button>
-})}
-						</AnswersContainer>
-						{currentTurn === "observer" && <FlexWrapper justifyContent='space-between'>
-							<Button
-								background='true'
-								hoverBackground='trueHover'
-								width={280}
-								height={70}
-								fontSize='lg'
-                                onClick={() => handleAnswer(true)}>
-								Prawda
-							</Button>
-							<Button
-								background='false'
-								hoverBackground='falseHover'
-								width={280}
-								height={70}
-								fontSize='lg'
-                                onClick={() => handleAnswer(false)}
-                                >
-								Fałsz
-							</Button>
-							<CountdownCircleTimer
-								isPlaying
-								size={70}
-								duration={10}
-								colors={["#236B11", "#004777", "#F7B801", "#A30000", "#A30000"]}
-								colorsTime={[30, 15, 12, 5, 0]}
-								onComplete={() => {
-									setIsPlaying(false);
-								}}>
-								{({ remainingTime }) => remainingTime}
-							</CountdownCircleTimer>
-						</FlexWrapper>}
-					</FlexWrapper>
-				</FlexWrapper>
-				<FlexWrapper direction='column' justifyContent='flex-start'>
-					{observers.map(observer => (
-						<>
-							<Video id={`observer${observer.ID}`} width={244} height={244}>
-							</Video>
-							<Typography fontSize='mds'>{observer.name}</Typography>
-						</>
-					))}
-				</FlexWrapper>
-			</GameViewContainer>
-		</FlexWrapper>
-	);
+                                    background='true'
+                                    hoverBackground='trueHover'
+                                    width={10}
+                                    height={4}
+                                    fontSize='lg'
+                                    onClick={() => handleAnswer(true)}>
+                                    Prawda
+                                </Button>
+                                <Button
+                                    background='false'
+                                    hoverBackground='falseHover'
+                                    width={10}
+                                    height={4}
+                                    fontSize='lg'
+                                    onClick={() => handleAnswer(false)}
+                                    >
+                                    Fałsz
+                                </Button>
+                                <CountdownCircleTimer
+                                    isPlaying
+                                    size={70}
+                                    duration={10}
+                                    colors={["#236B11", "#004777", "#F7B801", "#A30000", "#A30000"]}
+                                    colorsTime={[30, 15, 12, 5, 0]}
+                                    onComplete={() => {
+                                        setIsPlaying(false);
+                                    }}>
+                                    {({ remainingTime }) => remainingTime}
+                                </CountdownCircleTimer>
+                            </FlexWrapper>}
+                        </FlexWrapper>
+                    </FlexWrapper>
+                    {/* <FlexWrapper direction='column' justifyContent='flex-start'>
+                        {observers.map(observer => (
+                            <>
+                                <Video id={`observer${observer.ID}`} width={244} height={244}>
+                                </Video>
+                                <Typography fontSize='mds'>{observer.name}</Typography>
+                            </>
+                        ))}
+                    </FlexWrapper> */}
+                </GameViewContainer>
+            </FlexWrapper>
+        );
 };
 
 export default QuizRoomPlayerPage;

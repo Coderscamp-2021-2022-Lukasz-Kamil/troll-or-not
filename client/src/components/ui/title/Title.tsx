@@ -45,7 +45,8 @@ const Title = ({ showButton }: { showButton: boolean }) => {
         <TitleContainer>
           <TitlePic />
           <Button
-            width={10}
+            width={12}
+            height={4}
             fontSize="mds"
             style={{ marginRight: "5%", marginTop: "2%" }}
             onClick={() => handleSignOut()}

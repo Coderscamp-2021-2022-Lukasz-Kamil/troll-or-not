@@ -121,7 +121,7 @@ const RegistrationPage = () => {
               value={confirmPassword}
             />
             <p></p>
-            <Button onClick={handleSignUp}>Stwórz konto!</Button>
+            <Button height={3} onClick={handleSignUp}>Stwórz konto!</Button>
           </GridContainer>
         </FlexWrapper>
       </LeftSideContainer>
