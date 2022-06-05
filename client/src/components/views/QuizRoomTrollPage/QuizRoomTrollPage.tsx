@@ -60,7 +60,6 @@ const QuizRoomTrollPage = ({currentTurn, currentQuestion, question}: {currentTur
     const userId = authed?.uid || "";
 
     const handleAnswer = async (isCorrect: boolean, e: any) => {
-        console.dir(e.target);
         await addTurnToGameAsAnswering({gameId: gameId || "", userId, answer: isCorrect, answerText: e.target.textContent})
     }
 
@@ -69,15 +68,15 @@ const QuizRoomTrollPage = ({currentTurn, currentQuestion, question}: {currentTur
         <GameViewContainer>
             <FlexWrapper direction="column" align-items="center">
                 <TitlePic marginBottom="0px"/>
-                {isCurrentPlayer ? "" :
-                <Video width={666} height={400}>VideoComponent</Video>}
+                {/* {isCurrentPlayer ? "" :
+                <Video width={666} height={400}>VideoComponent</Video>} */}
                 {currentTurn === "answering" && <Typography fontSize="mds">Teraz twoja kolej!</Typography>}
                 <Typography fontSize="mds">{player?.name}</Typography>
                 <FlexWrapper direction="column">
                     <Typography fontSize="lg">{question?.content}</Typography>
                     <AnswersContainer>
                         {answers?.map((answer: any) => (
-                            <Button onClick={(e) => handleAnswer(answer.isCorrect, e)}background="answer" width={300} height={77} fontSize="lg">{answer?.content}</Button>
+                            <Button onClick={(e) => handleAnswer(answer.isCorrect, e)}background="answer" width={30} height={6} fontSize="lg">{answer?.content}</Button>
                         ))}
                     </AnswersContainer>
                     <Typography fontSize="lg">{`Poprawna odpowiedź: ${question?.answers.find(answer => answer.isCorrect)?.content}`}</Typography>

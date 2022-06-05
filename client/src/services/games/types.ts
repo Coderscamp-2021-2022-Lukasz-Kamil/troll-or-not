@@ -34,7 +34,7 @@ type Participant = {
 	failures: number;
 };
 
-type CurrentPoints = {
+export type CurrentPoints = {
 	player: string;
 	points: number;
 };
