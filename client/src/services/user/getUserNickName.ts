@@ -1,13 +1,11 @@
-import { doc, getDoc } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase";
 
 export async function getUserNickName(userId: string) {
-    const userRef = await getDoc(doc(db, "user_test", userId));
+  const q = query(collection(db, "user_test"), where("authID", "==", userId));
+  const userRef = await getDocs(q);
 
-    const data = await userRef.data();
+  const data = await userRef.docs[0].data();
 
-    console.log(data);
-
-    return data?.nickname;
-
+  return data?.nickname;
 }

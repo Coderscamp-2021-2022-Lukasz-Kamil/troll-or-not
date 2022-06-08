@@ -1,4 +1,3 @@
-import { updatePassword } from "firebase/auth";
 import {
   collection,
   doc,
@@ -7,7 +6,7 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
-import { db, auth} from "../firebase";
+import { db } from "../firebase";
 
 export async function editUser(
   userId: string,
@@ -51,31 +50,6 @@ export async function editUser(
   });
 
   return {
-      success: true
-  }
-}
-
-export async function editPassword(
-  userId: string,
-  newPassword: string,
-  confirmPassword: string
-) {
-    const userRef = doc(db, "users_test", userId);
-
-    if (newPassword !== confirmPassword) {
-        throw new Error("Hasła muszą być identyczne");
-    }
-
-    const user = auth.currentUser;
-
-    if(!user) {
-        throw new Error("Musisz być zalogowany")
-    }
-
-    await updatePassword(user, newPassword)
-
-    return {
-        success: true
-    };
-
+    success: true,
+  };
 }

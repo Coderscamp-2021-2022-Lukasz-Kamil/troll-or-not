@@ -22,12 +22,15 @@ import { Button } from "../../ui/Button/Button.style";
 import { joinToGame } from "../../../services/games/joinToGame";
 import { useNavigate } from "react-router";
 import { AddNewGame } from "./AddForm";
+import { GameModel } from "../../../services/games/types";
+import { toast, ToastContainer } from "react-toastify";
 
 interface Lobby {
   id: string;
   name: string;
   numOfGamers: string;
   state: string;
+  createdAt: number;
 }
 
 export const LobbyPage = () => {
@@ -41,11 +44,14 @@ export const LobbyPage = () => {
   const navigate = useNavigate();
 
   const data = useMemo<Lobby[]>(() => games, [games]);
-  console.log(games);
+
   const handleJoinGame = async (gameId: string) => {
-    console.log("join")
-    await joinToGame({ gameId, userId: auth.currentUser!.uid });
-    navigate(`/before-game/${gameId}`);
+    try {
+      await joinToGame({ gameId, userId: auth.currentUser!.uid });
+      navigate(`/game/${gameId}`);
+    } catch (err: any) {
+      toast.error(err.message || "Coś poszło nie tak");
+    }
   };
   const columns = useMemo<Column<Lobby>[]>(
     () => [
@@ -76,9 +82,8 @@ export const LobbyPage = () => {
             Header: "",
             accessor: "state",
             Cell: ({ cell }: any) => {
-              console.log(cell.row.original.id);
               return cell.value === "open" ? (
-                <div className="align-center">
+                <div>
                   <Button
                     width={8}
                     height={3}
@@ -92,7 +97,7 @@ export const LobbyPage = () => {
                   </Button>
                 </div>
               ) : (
-                <>{cell.value}</>
+                <div style={{ textAlign: "center" }}>TRWA</div>
               );
             },
             Filter: DefaultColumnFilter,
@@ -100,26 +105,34 @@ export const LobbyPage = () => {
         ],
       },
     ],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
 
   useEffect(() => {
-    const q = query(collection(db, "games_test"), where("status", "!=", "finished"));
+    const q = query(
+      collection(db, "games_test"),
+      where("status", "!=", "finished")
+    );
 
     onSnapshot(q, (querySnapshot) => {
-      const data: any[] = [];
+      const data: { data: GameModel; id: string }[] = [];
       querySnapshot.forEach((doc) => {
-        data.push({ data: doc.data(), id: doc.id });
+        data.push({ data: doc.data() as GameModel, id: doc.id });
       });
+
       setGames(
-        data.map((game) => {
-          return {
-            id: game.id,
-            name: game.data.name,
-            numOfGamers: `${game.data.participants.length}/${game.data.players}`,
-            state: game.data.status,
-          };
-        })
+        data
+          .map((game) => {
+            return {
+              id: game.id,
+              name: game.data.name,
+              numOfGamers: `${game.data.participants.length}/${game.data.players}`,
+              state: game.data.status,
+              createdAt: game.data.createdAt,
+            };
+          })
+          .sort((a, b) => b.createdAt - a.createdAt)
       );
     });
   }, []);
@@ -130,6 +143,7 @@ export const LobbyPage = () => {
   return (
     <>
       <PageWrapper>
+        <ToastContainer />
         <Title showButton={true} />
         <TableWrapper>
           <Table {...getTableProps()}>

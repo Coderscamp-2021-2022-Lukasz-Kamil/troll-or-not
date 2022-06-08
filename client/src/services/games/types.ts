@@ -18,42 +18,45 @@ export type JoinToGameInput = {
 export type AnsweringTurnInput = {
   gameId: string;
   userId: string;
-  answer: boolean;
+  answer?: boolean;
   answerText: string;
 };
 
 export type ViewerTurnInput = {
-
-	gameId: string;
-	userId: string;
-	bet?: boolean;
+  gameId: string;
+  userId: string;
+  bet?: boolean;
+};
+export type Player = {
+  id: string;
+  nickname: string;
 };
 
-type Participant = {
-  user: string;
+export type Participant = {
+  player: Player;
   isReady: boolean;
   failures: number;
 };
 
-
 export type CurrentPoints = {
-	player: string;
-	points: number;
+  player: Player;
+  points: number;
 };
 
-type Viewer = {
-	player: string;
-	bet?: boolean;
-    notAnswered?: boolean;
+export type Viewer = {
+  player: string;
+  bet?: boolean;
+  notAnswered?: boolean;
 };
 
-type Turn = {
-  answer: boolean;
+export type Turn = {
+  answer?: boolean;
+  notAnswered?: boolean;
   viewers: Viewer[];
   questionWin: boolean;
 };
 
-type Round = {
+export type Round = {
   currentQuestion: number;
   answeringPlayer: string;
   questions: QuestionModel[];
@@ -61,10 +64,10 @@ type Round = {
 };
 
 export type GameModel = {
-  createdAt: Date;
+  createdAt: number;
   name: string;
   status: "open" | "ongoing" | "finished";
-  host: string;
+  host: Player;
   players: number;
   participants: Participant[];
   currentPoints: CurrentPoints[];
@@ -72,4 +75,8 @@ export type GameModel = {
   rounds: Round[];
   currentTurn: "answering" | "observer";
   currentAnswer: string;
+};
+
+export type PointsForQuestions = {
+  [key: number]: number;
 };

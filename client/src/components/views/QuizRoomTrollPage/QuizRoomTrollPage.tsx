@@ -5,7 +5,7 @@ import { TitlePic } from "../../ui/title/Title";
 import { FlexWrapper } from "../../wrapper/FlexCenter/FlexWrapper.style";
 import { theme } from "../../../theme/theme";
 import { Typography } from "../../ui/Typography/Typography";
-import { GameModel } from "../../../services/games/types";
+import { CurrentPoints } from "../../../services/games/types";
 import { QuestionModel } from "../../../services/questions/types";
 import { addTurnToGameAsAnswering } from "../../../services/games/addTurnToGame";
 import { useParams } from "react-router";
@@ -43,58 +43,108 @@ export const Video = styled.div<VideoProps>`
   border-radius: 10px;
 `;
 
+const QuizRoomTrollPage = ({
+  currentTurn,
+  currentQuestion,
+  question,
+  currentRound,
+  currentPoints,
+}: {
+  currentTurn: string;
+  currentQuestion: number;
+  currentRound: number;
+  question: QuestionModel | undefined;
+  currentPoints: CurrentPoints[];
+}) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [isPlaying, setIsPlaying] = useState(true);
 
-const QuizRoomTrollPage = ({currentTurn, currentQuestion, question}: {currentTurn: string, currentQuestion: number, question: QuestionModel | undefined}) => {
-    const [isCurrentPlayer, setCurrentPlayer] = useState(true);
-    const [isPlaying, setIsPlaying] = useState(true);
+  const { gameId } = useParams();
 
-    const observers = [{name: "Kamil", ID: "222333"}, {name: "Donata", ID: "222333"}, {name: "Rafał", ID: "222333"}];
-    const player = {name: "Mateusz", chatID: "222333"};
+  const answers = question?.answers;
 
-    const {gameId} = useParams();
+  const authed = auth.currentUser;
 
-    const answers = question?.answers; 
+  const userId = authed?.uid || "";
 
-    const authed = auth.currentUser;
+  const handleAnswer = async (isCorrect?: boolean, e?: any) => {
+    await addTurnToGameAsAnswering({
+      gameId: gameId || "",
+      userId,
+      answer: isCorrect,
+      answerText: e ? e.target.value : "",
+    });
+  };
 
-    const userId = authed?.uid || "";
-
-    const handleAnswer = async (isCorrect: boolean, e: any) => {
-        await addTurnToGameAsAnswering({gameId: gameId || "", userId, answer: isCorrect, answerText: e.target.textContent})
-    }
-
-    return (
+  return (
     <FlexWrapper justifyContent="center">
-        <GameViewContainer>
-            <FlexWrapper direction="column" align-items="center">
-                <TitlePic marginBottom="0px"/>
-                {currentTurn === "answering" && <Typography fontSize="mds">Teraz twoja kolej!</Typography>}
-                <FlexWrapper direction="column">
-                    <Typography fontSize="lg">{question?.content}</Typography>
-                    <AnswersContainer>
-                        {answers?.map((answer: any) => (
-                            <Button onClick={(e) => handleAnswer(answer.isCorrect, e)}background="answer" width={30} height={6} fontSize="lg">{answer?.content}</Button>
-                        ))}
-                    </AnswersContainer>
-                    <Typography fontSize="lg">{`Poprawna odpowiedź: ${question?.answers.find(answer => answer.isCorrect)?.content}`}</Typography>
+      <GameViewContainer>
+        <FlexWrapper>
+          <FlexWrapper direction="column" align-items="center">
+            <TitlePic marginBottom="0px" />
+            {currentTurn === "answering" && (
+              <Typography fontSize="mds">Teraz twoja kolej!</Typography>
+            )}
+            <Typography fontSize="mds">Obecna runda: {currentRound}</Typography>
+            <Typography fontSize="mds">
+              Pytanie nr: {currentQuestion}
+            </Typography>
+            <FlexWrapper direction="column">
+              <Typography fontSize="lg">{question?.content}</Typography>
+              <AnswersContainer>
+                {answers?.map((answer: any) => (
+                  <Button
+                    onClick={(e) => handleAnswer(answer.isCorrect, e)}
+                    background="answer"
+                    width={30}
+                    height={6}
+                    fontSize="lg"
+                  >
+                    {answer?.content}
+                  </Button>
+                ))}
+              </AnswersContainer>
+              <Typography fontSize="lg">{`Poprawna odpowiedź: ${
+                question?.answers.find((answer) => answer.isCorrect)?.content
+              }`}</Typography>
 
-                    <FlexWrapper justifyContent="space-between">
-                        {currentTurn === "answering" && <CountdownCircleTimer
-								isPlaying
-								size={70}
-								duration={40}
-								colors={["#236B11", "#004777", "#F7B801", "#A30000", "#A30000"]}
-								colorsTime={[30, 15, 12, 5, 0]}
-								onComplete={() => {
-									setIsPlaying(false);
-								}}>
-								{({ remainingTime }) => remainingTime}
-							</CountdownCircleTimer>}
-                    </FlexWrapper>
-                </FlexWrapper>
+              <FlexWrapper justifyContent="space-between">
+                {currentTurn === "answering" && (
+                  <CountdownCircleTimer
+                    isPlaying
+                    size={70}
+                    duration={20}
+                    colors={[
+                      "#236B11",
+                      "#004777",
+                      "#F7B801",
+                      "#A30000",
+                      "#A30000",
+                    ]}
+                    colorsTime={[30, 15, 12, 5, 0]}
+                    onComplete={() => {
+                      setIsPlaying(false);
+                      handleAnswer();
+                    }}
+                  >
+                    {({ remainingTime }) => remainingTime}
+                  </CountdownCircleTimer>
+                )}
+              </FlexWrapper>
             </FlexWrapper>
-        </GameViewContainer>
-      </FlexWrapper>
+          </FlexWrapper>
+          <div>
+            {currentPoints.map((point) => {
+              return (
+                <div>
+                  {point.player.nickname} - {point.points}
+                </div>
+              );
+            })}
+          </div>
+        </FlexWrapper>
+      </GameViewContainer>
+    </FlexWrapper>
   );
 };
 

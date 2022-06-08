@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import GlobalStyles from "./global-styles/GlobalStyles";
 import { ThemeProvider } from "styled-components";
 import { theme } from "./theme/theme";
@@ -8,9 +8,6 @@ import AddQuestionPage from "./components/views/AddQuestionPage/AddQuestionPage"
 import LoginPage from "./components/views/LoginPage/LoginPage";
 import RegistrationPage from "./components/views/RegistrationPage/RegistrationPage";
 import { LobbyPage } from "./components/views/LobbyListPage/LobbyPage";
-import BeforeGamePage from "./components/views/BeforeGamePage/BeforeGamePage";
-import QuizRoomPlayerPage from "./components/views/QuizRoomPlayerPage/QuizRoomPlayerPage";
-// import QuizRoomTrollPage from "./components/views/QuizRoomTrollPage/QuizRoomTrollPage";
 import NotFoundPage from "./components/views/NotFound/NotFoundPage";
 import ProtectedRoutes from "./components/ProtectedRoutes/ProtectedRouts";
 import { MeetProvider } from "./components/video/meetContext";
@@ -31,9 +28,8 @@ function App() {
               <Route path="/add-question" element={<AddQuestionPage />} />
 
               <Route path="/lobby-list" element={<LobbyPage />} />
-              <Route path="/before-game/:gameId" element={<BeforeGamePage />} />
               <Route
-                path="/current-lobby/:gameId"
+                path="/game/:gameId"
                 element={<Game />}
               />
             </Route>

@@ -4,12 +4,11 @@ import { ButtonWithIcon } from "../../ui/ButtonWithIcon/ButtonWithIcon";
 import { Input } from "../../ui/Input/Input";
 import Title from "../../ui/title/Title";
 import { Typography, TypographyGrid } from "../../ui/Typography/Typography";
-import { GridContainer } from "../../wrapper/FlexCenter/GridContainter.style";
 import { LeftSideContainer } from "../../wrapper/FlexCenter/LeftSideContainer";
 import googleIcon from "../../../assets/googleIcon.svg";
 import { Button } from "../../ui/Button/Button.style";
 import { FlexWrapper } from "../../wrapper/FlexCenter/FlexWrapper.style";
-import { googleSignIn, signIn } from "../../../services/user/auth";
+import { signIn } from "../../../services/user/auth";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
@@ -92,7 +91,11 @@ const LoginPage = () => {
             value={password}
           />
           <div></div>
-          <Button height={3} background="secondary" onClick={() => handleSignIn()}>
+          <Button
+            height={3}
+            background="secondary"
+            onClick={() => handleSignIn()}
+          >
             Zaloguj się
           </Button>
           <div></div>

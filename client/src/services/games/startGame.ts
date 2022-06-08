@@ -6,10 +6,9 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "../firebase";
+import { QUESTIONS_PER_ROUND } from "./constants";
 import { getGame } from "./getGame";
-import { StartGameInput } from "./types";
-
-const QUESTIONS_PER_ROUND = 6;
+import { Participant, StartGameInput } from "./types";
 
 function randomQuestions(numberOfQuestions: number, questionsAmount: number) {
   const arr = [];
@@ -27,14 +26,17 @@ export async function createRounds(roundsAmount: number, userIds: string[]) {
     where("isConfirmed", "==", true)
   );
   const questions = await getDocs(q);
+
   const questionsInGameAmount = roundsAmount * QUESTIONS_PER_ROUND;
 
   const questionsAmount = questions.size;
 
-//   const random = randomQuestions(questionsInGameAmount, questionsAmount);
+  const random = randomQuestions(questionsInGameAmount, questionsAmount);
 
   const promises = questions.docs.map(async (doc, index) => {
+    if (random.indexOf(index) !== -1) {
       return await doc.data();
+    }
   });
 
   const questionsResponse = await (
@@ -42,7 +44,6 @@ export async function createRounds(roundsAmount: number, userIds: string[]) {
   ).filter((doc) => doc);
 
   let rounds: any = [];
-
   for (let i = 0; i < roundsAmount; i++) {
     rounds.push({
       currentQuestion: 1,
@@ -52,66 +53,45 @@ export async function createRounds(roundsAmount: number, userIds: string[]) {
     });
   }
 
-  const sortedA = questionsResponse.sort((a, b) => {
-      return a.order - b.order;
-  })
-
-  const sortedB = questionsResponse.sort((a, b) => {
-    return b.order - a.order;
-})
-
-  sortedA.forEach((question, index) => {
-    // sortedA indexForRound = Math.floor(index / 6);
-    rounds[0].questions.push(question);
-    rounds[1].questions.push(question);
+  questionsResponse.forEach((question, index) => {
+    const indexForRound = Math.floor(index / 6);
+    rounds[indexForRound].questions.push(question);
   });
-
-  sortedB.forEach((question, index) => {
-    // sortedA indexForRound = Math.floor(index / 6);
-    if (roundsAmount >= 3) {
-        rounds[2].questions.push(question);
-    }
-
-    if (roundsAmount >= 4) {
-        rounds[3].questions.push(question);
-    }
-  });
-
-  rounds[0].questions.push(sortedA[0])
-  rounds[1].questions.push(sortedA[0])
-  if(roundsAmount >= 3) {
-    rounds[2].questions.push(sortedA[0])
-
-  }
-  if(roundsAmount >= 3) {
-    rounds[3].questions.push(sortedA[0])
-  }
 
   return rounds;
 }
 
 export async function startGame({ gameId }: StartGameInput) {
-  const {gameRef, gameData} = await getGame(gameId);
+  const { gameRef, gameData } = await getGame(gameId);
 
   if (!gameData) {
     throw new Error("Ta gra nie istnieje!");
+  }
+
+  if (gameData.participants.length < gameData.players) {
+    throw new Error("Nie ma wystarczającej liczby graczy!");
   }
 
   if (gameData.participants.some((participant: any) => !participant.isReady)) {
     throw new Error("Nie wszyscy gracze są gotowi!");
   }
   const gameRoundsAmount = gameData.participants.length;
-  const userIds = gameData.participants.map((participant: any) => participant.user);
+  const users = gameData.participants.map(
+    (participant: Participant) => participant.player
+  );
 
-  const rounds = await createRounds(gameRoundsAmount, userIds);
-  console.log(rounds);
+  const rounds = await createRounds(
+    gameRoundsAmount,
+    users.map((user) => user.id)
+  );
 
-    await updateDoc(gameRef, {
-      status: "ongoing",
-      currentRound: 1,
-      rounds,
-      currentPoints: userIds.map((userId: string) => ({player: userId, points: 0})),
-      currentTurn: "answering",
-      currentAnswer: ""
-    });
+  await updateDoc(gameRef, {
+    status: "ongoing",
+    currentRound: 1,
+    rounds,
+    participants: gameData.participants,
+    currentPoints: users.map((user) => ({ player: user, points: 0 })),
+    currentTurn: "answering",
+    currentAnswer: "",
+  });
 }

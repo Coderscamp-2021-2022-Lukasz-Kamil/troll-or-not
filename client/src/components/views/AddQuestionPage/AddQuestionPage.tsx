@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "../../ui/Button/Button.style";
 import { Input } from "../../ui/Input/Input";
-import Title from "../../ui/title/Title";
 import { FlexWrapper } from "../../wrapper/FlexCenter/FlexWrapper.style";
-import { GridContainer } from "../../wrapper/FlexCenter/GridContainter.style";
 import { Typography, TypographyGrid } from "../../ui/Typography/Typography";
 import { LeftSideContainer } from "../../wrapper/FlexCenter/LeftSideContainer";
 import { addQuestion } from "../../../services/questions/addQuestion";

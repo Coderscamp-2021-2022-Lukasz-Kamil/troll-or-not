@@ -1,22 +1,32 @@
 import { updateDoc } from "firebase/firestore";
 import { getGame } from "./getGame";
+import { Participant } from "./types";
 
 export async function setReady(gameId: string, userId: string) {
-    const {gameRef, gameData} = await getGame(gameId);
+  const { gameRef, gameData } = await getGame(gameId);
 
-    const participants = gameData?.participants.map(participant => {
-        if(participant.user === userId) {
-            return {
-                user: participant.user,
-                failures: participant.failures,
-                isReady: true,
-            }
-        } else {
-            return participant;
-        }
-    })
+  if (!gameData || !gameRef) {
+    throw new Error("Nie ma takiej gry!");
+  }
 
-    await updateDoc(gameRef, {
-        participants,
-    })
+  const participants: Participant[] = gameData?.participants.map(
+    (participant) => {
+      if (participant.player.id === userId) {
+        return {
+          player: {
+            id: participant.player.id,
+            nickname: participant.player.nickname,
+          },
+          failures: participant.failures,
+          isReady: true,
+        };
+      } else {
+        return participant;
+      }
+    }
+  );
+
+  await updateDoc(gameRef, {
+    participants,
+  });
 }

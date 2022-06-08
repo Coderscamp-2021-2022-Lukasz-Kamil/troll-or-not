@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
-interface InputProps {
+interface SelectProps {
   background?: "primary" | "secondary";
   height?: number;
   width?: number;
   color?: "textColor" | "backgroundcolor";
 }
 
-export const Input = styled.input<InputProps>`
+export const Select = styled.select<SelectProps>`
   width: ${({ width }) => (width ? width : 30)}vw;
   height: ${({ height }) => (height ? height : 6)}vh;
   background: ${({ theme, background }) =>

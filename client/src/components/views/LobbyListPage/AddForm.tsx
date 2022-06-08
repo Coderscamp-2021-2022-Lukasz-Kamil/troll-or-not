@@ -8,6 +8,8 @@ import { addGame } from "../../../services/games/createGame";
 import { useNavigate } from "react-router";
 import { AddGameWrapper } from "./AddForm.styled";
 import { ButtonGame } from "./LobbyPage.styled";
+import { Select } from "../../ui/Select/Select.style";
+import { toast, ToastContainer } from "react-toastify";
 
 export const AddNewGame = () => {
   const [lobbyName, setLobbyName] = useState<string>("");
@@ -19,30 +21,31 @@ export const AddNewGame = () => {
   const handleAddLobby = (event: any) => {
     event.preventDefault();
     setLobbyName(event.target.value);
-    console.log("ustawiamyLobby", lobbyName);
   };
 
   const handleGamersAmount = (event: any) => {
     event.preventDefault();
-    setGamersAmount(event.target.value);
+    setGamersAmount(+event.target.value);
   };
 
   const navigate = useNavigate();
 
   const handleCreateGame = async () => {
-    console.log("tworzenieGry", lobbyName);
+    if (lobbyName.trim() === "") {
+      return toast.error("Musisz podać nazwę gry");
+    }
     const id = await addGame({
       name: lobbyName,
       host: userId,
       players: gamersAmount,
     });
-    navigate(`/before-game/${id}`);
+    navigate(`/game/${id}`);
   };
 
-  console.log(lobbyName);
   return (
     <>
       <AddGameWrapper>
+        <ToastContainer />
         <Grid>
           <TypographyGrid>Nazwa Lobby</TypographyGrid>
           <Input
@@ -52,12 +55,11 @@ export const AddNewGame = () => {
             value={lobbyName}
           />
           <TypographyGrid>Ilość graczy</TypographyGrid>
-          <Input
-            type="number"
-            name="amountOfGamers"
-            onChange={handleGamersAmount}
-            value={gamersAmount}
-          />
+          <Select name="amountOfGamers" onChange={handleGamersAmount}>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </Select>
           <ButtonGame onClick={handleCreateGame}>Dodaj rozgrywkę</ButtonGame>
         </Grid>
       </AddGameWrapper>

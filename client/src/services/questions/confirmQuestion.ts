@@ -3,28 +3,27 @@ import { auth, db } from "../firebase";
 import { getQuestion } from "./getQuestion";
 
 export async function confirmQuestion(questionId: string) {
-    const authed = auth.currentUser;
+  const authed = auth.currentUser;
 
-    if (!authed) {
-        throw new Error("Musisz być zalogowany")
-    }
+  if (!authed) {
+    throw new Error("Musisz być zalogowany");
+  }
 
-    const user = await getDoc(doc(db, "users_test", authed.uid));
+  const user = await getDoc(doc(db, "users_test", authed.uid));
 
-    const userData = await user.data();
+  const userData = await user.data();
 
-    if (!userData?.isAdmin) {
-        throw new Error("Tylko admin moe zatwierdzić pytanie")
-    }
+  if (!userData?.isAdmin) {
+    throw new Error("Tylko admin moe zatwierdzić pytanie");
+  }
 
-    const {questionRef, questionData} = await getQuestion(questionId);
+  const { questionRef, questionData } = await getQuestion(questionId);
 
-    if (!questionRef || !questionData) {
-        throw new Error("Nie ma takiego pytania");
-    }
+  if (!questionRef || !questionData) {
+    throw new Error("Nie ma takiego pytania");
+  }
 
-    await updateDoc(questionRef, {
-        confirmed: true
-    })
-
+  await updateDoc(questionRef, {
+    confirmed: true,
+  });
 }
